@@ -67,14 +67,14 @@ public class ReportReview
     private Report report;
     
     @Transient
-    private Integer reportId;
+    private Integer reportId = 0;
     
-    private long timeKey;
+    private long timeKey = 0L;
     
     @Column(length=512)
     private String reviewText = "";
     
-    private int workflowLevel;
+    private int workflowLevel = 0;
     
     @Column(length=512)
     private String parsedContent = "";
@@ -377,6 +377,7 @@ public class ReportReview
 	/**
 	 * <<Transient>> Verdadeiro quando hé uma categoria disponível.
 	 */
+    @JsonIgnore
 	protected boolean isCategoryEnabled() {
 		return getCategory()!=null && getCategory().getScriptItemsAsArray().length>0;
 	}
@@ -389,6 +390,7 @@ public class ReportReview
      * a pasta é entéo usada para extrair scripts.
      * </p>
      */
+    @JsonIgnore
     public String getScriptItems() {
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptItems();
@@ -396,6 +398,7 @@ public class ReportReview
 		return "";
     }
     
+    @JsonIgnore
     public List<String> getScriptList() {
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptList();
@@ -403,6 +406,7 @@ public class ReportReview
 		return null;
     }
     
+    @JsonIgnore
     public String[] getScriptItemsAsArray() {
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptItemsAsArray();
