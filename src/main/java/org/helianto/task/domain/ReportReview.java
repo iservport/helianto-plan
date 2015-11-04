@@ -230,6 +230,7 @@ public class ReportReview
      * abaixo.
      * </p>
      */
+    @JsonIgnore
     public void setReportResolution(char resolution) {
     	if (getReport()!=null) {
     		getReport().setResolution(resolution);
@@ -248,6 +249,7 @@ public class ReportReview
      * com a mesma resolução da éltima modifique o relatório de origem.
      * </p>
      */
+    @JsonIgnore
     public boolean isReportResolutionProtected() {
     	if (getReport()!=null) {
     		return getReport().getResolution()!=getResolution();
@@ -258,6 +260,7 @@ public class ReportReview
     /**
      * Conveninte para utilizar safeReportResolution como propriedade na camada de apresentação.
      */
+    @JsonIgnore
     public char getSafeReportResolution() {
     	if (getReport()!=null) {
     		return getReport().getResolution();
@@ -271,6 +274,7 @@ public class ReportReview
      * 
      * @param resolution
      */
+    @JsonIgnore
     public void setSafeReportResolution(char resolution) {
     	// Teste 1: o relatório está protegido por outra revisão?
     	if (!isReportResolutionProtected()) {
@@ -302,6 +306,7 @@ public class ReportReview
      * de aprovação do proprietário desta revisão, ou também verdadeiro se o relatório não 
      * requer fluxo de aprovação.
      */
+    @JsonIgnore
     protected boolean isOwnerAuthorizedToChangeReport() {
 		if (getReport().isWorkflowRequired()) {
 			if (getReport().getWorkflowPhase()==getWorkflowLevel()) {
@@ -318,6 +323,7 @@ public class ReportReview
      * 
      * @param workflowPhase
      */
+    @JsonIgnore
     public void setReportWorkflowPhase(int workflowPhase) {
     	if (getReport()!=null && getReport().isWorkflowRequired()) {
     		getReport().setWorkflowPhase(workflowPhase);
@@ -329,6 +335,7 @@ public class ReportReview
     /**
      * Conveninte para utilizar safeReportProgress como propriedade na camada de apresentação.
      */
+    @JsonIgnore
     public int getSafeReportProgress() {
     	if (getReport()!=null) {
     		return getReport().getComplete();
@@ -342,12 +349,14 @@ public class ReportReview
      * 
      * @param complete
      */
+    @JsonIgnore
     public void setSafeReportProgress(int complete) {
     	if (!isReportResolutionProtected()) {
     		getReport().setComplete(complete);
     	}
     }
     
+    @JsonIgnore
 	public Category getCategory() {
 		if (getReport()!=null) {
 			return getReport().getCategory();
