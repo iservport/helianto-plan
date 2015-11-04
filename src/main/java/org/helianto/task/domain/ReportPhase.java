@@ -27,15 +27,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.helianto.core.SimpleStateResolver;
 import org.helianto.core.StateResolver;
-import org.helianto.core.Verifiable;
 import org.helianto.document.Plan;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -51,7 +49,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class ReportPhase 
 	implements 
 	  Plan
-	, Verifiable
 	, Comparable<ReportPhase> 
 {
 
@@ -65,6 +62,9 @@ public class ReportPhase
     @JoinColumn(name="reportFolderId", nullable=true)
     private ReportFolder reportFolder;
     
+	@Transient
+    private Integer reportFolderId = 0;
+	
     @Column
     private char literal;
     
@@ -79,30 +79,12 @@ public class ReportPhase
     
     private int estimate;
     
-    @DateTimeFormat(style="SS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date scheduledStartDate;
     
-    @DateTimeFormat(style="SS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date scheduledEndDate;
 
-    /**
-   	 * Merger.
-   	 * 
-   	 * @param command
-   	 **/
-    public ReportPhase merge(ReportPhase command) {
-   			setLiteral(command.getLiteral());
-   			setPhaseName(command.getPhaseName());
-   			setContent(command.getContent());
-   			setEncoding(command.getEncoding());
-   			setEstimate(command.getEstimate());
-   			setScheduledStartDate(command.getScheduledStartDate());
-   			setScheduledEndDate(command.getScheduledEndDate());
-   			return this;
-   		}
-       
     
     /** 
      * Default constructor.
@@ -135,6 +117,41 @@ public class ReportPhase
     }
     
     /**
+     * Form constructor.
+     * 
+     * @param id
+     * @param reportFolderId
+     * @param literal
+     * @param phaseName
+     * @param content
+     * @param encoding
+     * @param estimate
+     * @param scheduledStartDate
+     * @param scheduledEndDate
+     */
+    public ReportPhase(int id
+    		, Integer reportFolderId
+    		, char literal
+    		, String phaseName
+    		, byte[] content
+    		, String encoding
+    		, int estimate
+			, Date scheduledStartDate
+			, Date scheduledEndDate
+			) {
+		super();
+		this.id = id;
+		this.reportFolderId = reportFolderId;
+		this.literal = literal;
+		this.phaseName = phaseName;
+		this.content = content;
+		this.encoding = encoding;
+		this.estimate = estimate;
+		this.scheduledStartDate = scheduledStartDate;
+		this.scheduledEndDate = scheduledEndDate;
+	}
+
+	/**
      * Primary key
      */
     public int getId() {
@@ -155,9 +172,20 @@ public class ReportPhase
 	}
     
     /**
+     * <<Transient>> report folder id.
+     */
+	public Integer getReportFolderId() {
+		return reportFolderId;
+	}
+	public ReportPhase setReportFolderId(Integer reportFolderId) {
+		this.reportFolderId = reportFolderId;
+		return this;
+	}
+    
+    /**
      * Conveniente para recuperar o código da pasta.
      */
-//    @Transient
+    @Transient
     public String getBuilderCode() {
     	if (getReportFolder()!=null) {
     		return getReportFolder().getFolderCode();
@@ -168,7 +196,7 @@ public class ReportPhase
     /**
      * Conveniente para recuperar o nome da pasta.
      */
-//    @Transient
+    @Transient
     public String getBuilderName() {
     	if (getReportFolder()!=null) {
     		return getReportFolder().getFolderName();
@@ -210,7 +238,6 @@ public class ReportPhase
     /**
      * Helper method to get text content as String.
      */
-//    @Transient
     public String getContentAsString() {
     	if (getContent()!=null) {
     		return new String(getContent());
@@ -221,7 +248,6 @@ public class ReportPhase
 		setContent(contentAsString);
 	}
     
-//    @Transient
     public int getContentSize() {
     	if (getContent()!=null) {
     		return getContent().length;
@@ -270,9 +296,25 @@ public class ReportPhase
     }
 
     /**
+   	 * Merger.
+   	 * 
+   	 * @param command
+   	 **/
+    public ReportPhase merge(ReportPhase command) {
+   			setLiteral(command.getLiteral());
+   			setPhaseName(command.getPhaseName());
+   			setContent(command.getContent());
+   			setEncoding(command.getEncoding());
+   			setEstimate(command.getEstimate());
+   			setScheduledStartDate(command.getScheduledStartDate());
+   			setScheduledEndDate(command.getScheduledEndDate());
+   			return this;
+   		}
+       
+    /**
      * Resolve plan status.
      */
-//    @Transient
+    @Transient
     public StateResolver getState() {
     	return new SimpleStateResolver(this);
     }
@@ -325,17 +367,5 @@ public class ReportPhase
          result = 37 * result + getLiteral();
          return result;
    }
-
-//	@Transient
-	public char getResolution() {
-		// TODO Remover a interface Verifiable
-		return 'D';
-	}
-	
-//	@Transient
-	public Date getNextCheckDate() {
-		// TODO Remover a interface Verifiable
-		return null;
-	}
 
 }
