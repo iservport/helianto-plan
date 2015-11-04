@@ -186,8 +186,9 @@ public class ReportReview
     public Integer getReportId() {
 		return reportId;
 	}
-    public void setReportId(Integer reportId) {
+    public ReportReview setReportId(Integer reportId) {
 		this.reportId = reportId;
+		return this;
 	}
     
     /**
