@@ -22,6 +22,7 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.helianto.core.def.Resolution;
@@ -31,7 +32,7 @@ import org.helianto.core.domain.Identity;
 import org.helianto.core.internal.AbstractEvent;
 import org.helianto.core.internal.InterpretableCategory;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Avaliação para um relatório.
@@ -60,10 +61,13 @@ public class ReportReview
 	
     private static final long serialVersionUID = 1L;
     
-    @JsonBackReference 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="reportId", nullable=true)
     private Report report;
+    
+    @Transient
+    private Integer reportId;
     
     private long timeKey;
     
@@ -75,20 +79,6 @@ public class ReportReview
     @Column(length=512)
     private String parsedContent = "";
     
-    /**
-	  * Merger.
-	  * 
-	  * @param command
-  	  **/
-    public ReportReview merge(ReportReview command) {
-   			setTimeKey(command.getTimeKey());
-   			setReviewText(command.getReviewText());
-   			setWorkflowLevel(command.getWorkflowLevel());
-   			setParsedContent(command.getParsedContent());
-   			return this;
-   		}
-       
-
 	/** 
 	 * Default constructor.
 	 */
@@ -98,7 +88,48 @@ public class ReportReview
         setTimeKey(getIssueDate().getTime());
     }
     
-    /** 
+    /**
+     * Read constrctor.
+     * 
+     * @param id
+     * @param ownerId
+     * @param ownerDisplayName
+     * @param ownerFirstName
+     * @param ownerLastName
+     * @param ownerGender
+     * @param ownerImageUrl
+     * @param issueDate
+     * @param resolution
+     * @param reportId
+     * @param timeKey
+     * @param reviewText
+     * @param workflowLevel
+     * @param parsedContent
+     */
+    public ReportReview(Integer id
+    		, Integer ownerId
+    		, String ownerDisplayName
+    		, String ownerFirstName
+    		, String ownerLastName
+			, Character ownerGender
+			, String ownerImageUrl
+			, Date issueDate
+			, Character resolution
+    		, Integer reportId
+    		, long timeKey
+    		, String reviewText
+    		, int workflowLevel
+    		, String parsedContent) {
+    	super(id, ownerId, ownerDisplayName, ownerFirstName, ownerLastName, ownerGender, ownerImageUrl, issueDate, resolution);
+		this.reportId = reportId;
+		this.timeKey = timeKey;
+		this.reviewText = reviewText;
+		this.workflowLevel = workflowLevel;
+		this.parsedContent = parsedContent;
+	}
+
+    
+	/** 
      * Key constructor.
      * 
      * @param report
@@ -131,7 +162,7 @@ public class ReportReview
     	setOwner(owner);
     }
 
-//    @Transient
+    @JsonIgnore
     public Entity getEntity() {
     	if (getReport()!=null) {
     		return getReport().getEntity();
@@ -148,6 +179,16 @@ public class ReportReview
     public void setReport(Report report) {
     	this.report = report;
     }
+    
+    /**
+     * <<Transient>> report id.
+     */
+    public Integer getReportId() {
+		return reportId;
+	}
+    public void setReportId(Integer reportId) {
+		this.reportId = reportId;
+	}
     
     /**
      * Chave automética
@@ -188,7 +229,6 @@ public class ReportReview
      * abaixo.
      * </p>
      */
-//    @Transient
     public void setReportResolution(char resolution) {
     	if (getReport()!=null) {
     		getReport().setResolution(resolution);
@@ -207,7 +247,6 @@ public class ReportReview
      * com a mesma resolução da éltima modifique o relatório de origem.
      * </p>
      */
-//    @Transient
     public boolean isReportResolutionProtected() {
     	if (getReport()!=null) {
     		return getReport().getResolution()!=getResolution();
@@ -218,7 +257,6 @@ public class ReportReview
     /**
      * Conveninte para utilizar safeReportResolution como propriedade na camada de apresentação.
      */
-//    @Transient
     public char getSafeReportResolution() {
     	if (getReport()!=null) {
     		return getReport().getResolution();
@@ -232,7 +270,6 @@ public class ReportReview
      * 
      * @param resolution
      */
-//    @Transient
     public void setSafeReportResolution(char resolution) {
     	// Teste 1: o relatório está protegido por outra revisão?
     	if (!isReportResolutionProtected()) {
@@ -264,7 +301,6 @@ public class ReportReview
      * de aprovação do proprietário desta revisão, ou também verdadeiro se o relatório não 
      * requer fluxo de aprovação.
      */
-//    @Transient
     protected boolean isOwnerAuthorizedToChangeReport() {
 		if (getReport().isWorkflowRequired()) {
 			if (getReport().getWorkflowPhase()==getWorkflowLevel()) {
@@ -281,7 +317,6 @@ public class ReportReview
      * 
      * @param workflowPhase
      */
-//    @Transient
     public void setReportWorkflowPhase(int workflowPhase) {
     	if (getReport()!=null && getReport().isWorkflowRequired()) {
     		getReport().setWorkflowPhase(workflowPhase);
@@ -293,7 +328,6 @@ public class ReportReview
     /**
      * Conveninte para utilizar safeReportProgress como propriedade na camada de apresentação.
      */
-//    @Transient
     public int getSafeReportProgress() {
     	if (getReport()!=null) {
     		return getReport().getComplete();
@@ -307,14 +341,12 @@ public class ReportReview
      * 
      * @param complete
      */
-//    @Transient
     public void setSafeReportProgress(int complete) {
     	if (!isReportResolutionProtected()) {
     		getReport().setComplete(complete);
     	}
     }
     
-//	@Transient
 	public Category getCategory() {
 		if (getReport()!=null) {
 			return getReport().getCategory();
@@ -335,7 +367,6 @@ public class ReportReview
 	/**
 	 * <<Transient>> Verdadeiro quando hé uma categoria disponível.
 	 */
-//	@Transient
 	protected boolean isCategoryEnabled() {
 		return getCategory()!=null && getCategory().getScriptItemsAsArray().length>0;
 	}
@@ -348,7 +379,6 @@ public class ReportReview
      * a pasta é entéo usada para extrair scripts.
      * </p>
      */
-//    @Transient
     public String getScriptItems() {
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptItems();
@@ -356,7 +386,6 @@ public class ReportReview
 		return "";
     }
     
-//    @Transient
     public List<String> getScriptList() {
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptList();
@@ -364,7 +393,6 @@ public class ReportReview
 		return null;
     }
     
-//    @Transient
     public String[] getScriptItemsAsArray() {
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptItemsAsArray();
@@ -372,6 +400,20 @@ public class ReportReview
 		return null;
     }
     
+    /**
+	  * Merger.
+	  * 
+	  * @param command
+  	  **/
+    public ReportReview merge(ReportReview command) {
+    	super.merge(command);
+		setTimeKey(command.getTimeKey());
+		setReviewText(command.getReviewText());
+		setWorkflowLevel(command.getWorkflowLevel());
+		setParsedContent(command.getParsedContent());
+		return this;
+   	}
+       
     /**
      * toString
      */
