@@ -58,7 +58,6 @@ import org.helianto.user.domain.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -105,10 +104,16 @@ public class Report
     @JoinColumn(name="reporterId", nullable=true)
     private Identity reporter;
     
+    @Transient
+    private Integer reporterId = 0;
+    
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="assesseeId", nullable=true)
     private Identity assessee;
+    
+    @Transient
+    private Integer assesseeId = 0;
     
     @Column(length=32)
 	private String prefix = "";
@@ -125,7 +130,7 @@ public class Report
     private ReportFolder series;
     
     @Transient
-    private int reportFolderId;
+    private int reportFolderId = 0;
 
 	@Column(length=20)
     private String nature = "";
@@ -145,7 +150,7 @@ public class Report
     
     private BigDecimal actualWork;
     
-    private int relativeSize;
+    private int relativeSize = 0;
     
     private char followUpOrder = FollowUpOrder.FIRST_DATE_ON_TOP.getValue();
    
@@ -169,6 +174,9 @@ public class Report
     @JoinColumn(name="partnerId", nullable=true)
     private Partner partner;
     
+    @Transient
+    private Integer partnerId = 0;
+    
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="categoryId", nullable=true)
@@ -181,11 +189,11 @@ public class Report
     
     private int mainRequirementSequence = -1;
     
-    @JsonManagedReference 
+    @JsonIgnore
     @OneToMany(mappedBy="report")
     private Set<Participant> participants = new HashSet<Participant>(0);
     
-    @JsonManagedReference 
+    @JsonIgnore 
     @OneToMany(mappedBy="report")
     private Set<FollowUp> followUps = new HashSet<FollowUp>(0);
     
@@ -210,34 +218,6 @@ public class Report
     @Transient
 	private char favourite = 'U';
 
-    
-    /**
-	  * Merger.
-	  * 
-	  * @param command
-  	  **/
-   		public Report merge(Report command) {
-   			setReportCode(command.getReportCode());
-   			setPrefix(command.getPrefix());
-   			setSummary(command.getSummary());
-   			setNature(command.getNature());
-   			setReportContent(command.getReportContent());
-   			setReportFileContentType(command.getReportFileContentType());
-   			setTaskDesc(command.getTaskDesc());
-   			setForecastWork(command.getForecastWork());
-   			setActualWork(command.getActualWork());
-   			setRelativeSize(command.getRelativeSize());
-   			setFollowUpOrder(command.getFollowUpOrder());
-   			setPresentationOrder(command.getPresentationOrder());
-   			setTraceability(command.getTraceability());
-   			setRequestType(command.getRequestType());
-   			setActionType(command.getActionType());
-   			setPhase(command.getPhase());
-   			setParsedContent(command.getParsedContent());
-   			setWorkflowPhase(command.getWorkflowPhase());
-   			setMainRequirementSequence(command.getMainRequirementSequence());
-   			return this;
-   		}
     
     /** 
      * Default constructor.
@@ -546,7 +526,7 @@ public class Report
 	}
     
     /**
-     * Relator.
+     * Reporter.
      * @see {@link Identity}
      */
 	public Identity getReporter() {
@@ -557,25 +537,23 @@ public class Report
 	}
 	
     /**
+     * <<Transient>> reporter id.
+     */
+	public Integer getReporterId() {
+		return reporterId;
+	}
+	public Report setReporterId(Integer reporterId) {
+		this.reporterId = reporterId;
+		return this;
+	}
+    
+    /**
      * Verdadeiro se não há relator.
      */
 	public boolean isReporterNull() {
 		return getReporter()==null ? true : false;
 	}
 
-    /**
-     * ID do relator, ou do solcitante, na falta do primeiro.
-     */
-	public long getReporterId() {
-    	if (getReporter()!=null) {
-    		return getReporter().getId();
-    	}
-		if (getOwner()!=null) {
-			return getOwner().getId();
-		}
-		return 0L;
-	}
-    
     /**
      * Nome a exibir do relator, ou do solcitante, na falta do primeiro.
      */
@@ -621,6 +599,17 @@ public class Report
 		this.assessee = assessee;
 	}
 	
+	/**
+	 * <<Transient>> assessee id.
+	 */
+    public Integer getAssesseeId() {
+		return assesseeId;
+	}
+    public Report setAssesseeId(Integer assesseeId) {
+		this.assesseeId = assesseeId;
+		return this;
+	}
+    
     /**
      * <<Transient>> Verdadeiro se não há avaliado.
      */
@@ -774,8 +763,9 @@ public class Report
     public int getReportFolderId() {
 		return reportFolderId;
 	}
-	public void setReportFolderId(int reportFolderId) {
+	public Report setReportFolderId(int reportFolderId) {
 		this.reportFolderId = reportFolderId;
+		return this;
 	}
     
     /**
@@ -1242,8 +1232,9 @@ public class Report
     public Integer getCategoryId() {
 		return categoryId;
 	}
-    public void setCategoryId(Integer categoryId) {
+    public Report setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+		return this;
 	}
     
 	/**
@@ -1310,6 +1301,17 @@ public class Report
 		this.partner = partner;
 	}
 	
+	/**
+	 * <<Transient>> partner id.
+	 */
+    public Integer getPartnerId() {
+		return partnerId;
+	}
+    public Report setPartnerId(Integer partnerId) {
+		this.partnerId = partnerId;
+		return this;
+	}
+    
 	/**
 	 * <<Transient>> Propriedades derivadas da categoria.
 	 */
@@ -1509,6 +1511,35 @@ public class Report
 		return (int) (other.getIssueDate().getTime() - followUp.getIssueDate().getTime());
 	}
 
+    /**
+	  * Merger.
+	  * 
+	  * @param command
+  	  **/
+   		public Report merge(Report command) {
+   			super.merge(command);
+   			setReportCode(command.getReportCode());
+   			setPrefix(command.getPrefix());
+   			setSummary(command.getSummary());
+   			setNature(command.getNature());
+   			setReportContent(command.getReportContent());
+   			setReportFileContentType(command.getReportFileContentType());
+   			setTaskDesc(command.getTaskDesc());
+   			setForecastWork(command.getForecastWork());
+   			setActualWork(command.getActualWork());
+   			setRelativeSize(command.getRelativeSize());
+   			setFollowUpOrder(command.getFollowUpOrder());
+   			setPresentationOrder(command.getPresentationOrder());
+   			setTraceability(command.getTraceability());
+   			setRequestType(command.getRequestType());
+   			setActionType(command.getActionType());
+   			setPhase(command.getPhase());
+   			setParsedContent(command.getParsedContent());
+   			setWorkflowPhase(command.getWorkflowPhase());
+   			setMainRequirementSequence(command.getMainRequirementSequence());
+   			return this;
+   		}
+    
 	@Override
 	public int hashCode() {
 		final int prime = 31;
