@@ -96,7 +96,7 @@ public class ReportFolder
 	private Identity owner;
 	
 	@Transient
-	private Integer ownerId;
+	public Integer ownerId;
 	
 	@Column(length=20)
 	private String reportNumberPattern = "";
@@ -112,7 +112,7 @@ public class ReportFolder
 	private Category category;
 	
 	@Transient
-	private Integer categoryId;
+	public Integer categoryId;
 	
 	private Character privacyLevel = new Character(PrivacyLevel.PUBLIC.getValue());
 	
@@ -125,7 +125,7 @@ public class ReportFolder
 	private Partner partner;
 	
 	@Transient
-	private Integer partnerId;
+	public Integer partnerId;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -133,7 +133,7 @@ public class ReportFolder
     private UserGroup userGroup;
 	
 	@Transient
-	private Integer userGroupId;
+	public Integer userGroupId;
 	
 	@Column(length=32)
 	private String folderCaption = "";
@@ -171,7 +171,7 @@ public class ReportFolder
 	private Set<ReportPhase> phases = new HashSet<ReportPhase>(0);
 	
 	@Transient
-    private List<String> transientScriptContents = new ArrayList<String>();
+	public List<String> transientScriptContents = new ArrayList<String>();
     
     /** 
      * Required constructor.
@@ -248,6 +248,7 @@ public class ReportFolder
      * @param folderCaption
      * @param parentPath
      * @param nature
+     * @param resolution
      * @param traceabilityItems
      * @param startDate
      * @param endDate
@@ -275,6 +276,7 @@ public class ReportFolder
     		, String folderCaption
     		, String parentPath
     		, String nature
+    		, Resolution2 resolution
     		, String traceabilityItems
     		, Date startDate
     		, Date endDate
@@ -296,6 +298,7 @@ public class ReportFolder
 		setFolderCaption(folderCaption);
 		setParentPath(parentPath);
 		setNature(nature);
+		setResolution(resolution);
 		setTraceabilityItems(traceabilityItems);
 		setStartDate(startDate);
 		setEndDate(endDate);
@@ -389,7 +392,7 @@ public class ReportFolder
      * Helper method to get text content as String.
      */
     public String getContentAsString() {
-    	if (getContent()!=null && isText()) {
+    	if (getContent()!=null) {
     		return new String(getContent());
     	}
     	return "";

@@ -40,6 +40,7 @@ public interface ReportFolderRepository2
 			+ "  reportFolder_.folderCaption, "
 			+ "  reportFolder_.parentPath, "
 			+ "  reportFolder_.nature, "
+			+ "  reportFolder_.resolution, "
 			+ "  reportFolder_.traceabilityItems, "
 			+ "  reportFolder_.startDate, "
 			+ "  reportFolder_.endDate, "
