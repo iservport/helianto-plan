@@ -35,18 +35,17 @@ import org.helianto.core.internal.InterpretableCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Avaliação para um relatório.
+ * Evaluate to a report.
  * 
  * <p>
- * Esta classe amplia o comportamento de um simples acompanhamento para dar consitência
- * ao fechamento dos relatórios. É através dela que o campo "resolução" da classe "relatório"
- * deve ser atualizado, sendo desencorajada sua atualização por outros meios.
+ * This class expands behavior of a coupling to give consistency to the close of reports.
+ * Through that the field "resolution" of class "report"  should be updated.
  * </p>
  * 
  * <p>
- * Esta classe é sensível à necessidade de fluxo de aprovação (workflow) e retém o nível de aprovação 
- * do proprietário no momento de sua criação. Com base nestes dados, um participante que tente
- * fechar o relatório em uma fase anterior à última, faz com que ele avance para a próxima fase.
+ * This class is sensitive to the necessary of approval flow (workflow) and  retains a level approval
+ * of owner during creation. With this datas, a participant that try close a report in a phase
+ * before the last, makes he advance to the next phase.
  * </p>
  * 
  * @author Mauricio Fernandes de Castro
@@ -171,7 +170,7 @@ public class ReportReview
     }
 
     /**
-     * Relatório de origem.
+     * Report origin.
      */
     public Report getReport() {
     	return this.report;
@@ -192,7 +191,7 @@ public class ReportReview
 	}
     
     /**
-     * Chave automética
+     * Automated key.
      */
     public long getTimeKey() {
 		return timeKey;
@@ -202,7 +201,7 @@ public class ReportReview
 	}
     
     /**
-     * Texto da avaliação.
+     * Evaluation text.
      */
     public String getReviewText() {
 		return reviewText;
@@ -212,7 +211,7 @@ public class ReportReview
 	}
     
     /**
-     * Nível de workflow (aprovação) extraédo do participante no momento da revisão.
+     * Workflow level (approval) extracted from participant in the momento of revision.
      */
     public int getWorkflowLevel() {
 		return workflowLevel;
@@ -222,12 +221,11 @@ public class ReportReview
 	}
     
     /**
-     * Atualiza a resolução junto com a do relatório de origem.
+     * Update resolution along with origin report.
      * 
      * <p>
-     * Convém consultar se esta avaliação é a éltima antes de realizar
-     * a atualização. Isto pode ser feito com o método {@link #isReportResolutionProtected()}
-     * abaixo.
+     * Should consult if this evaluation is the last one, before realize the update. 
+     * This can be done with method {@link #isReportResolutionProtected()}
      * </p>
      */
     @JsonIgnore
@@ -239,14 +237,14 @@ public class ReportReview
     }
     
     /**
-     * Protege contra alterações a resolução do relatório de origem caso esta avaliação não
-     * tenha sido a éltima.
+     * Protect against changes the resolution of origin report, if this evaluation
+     * don't be the last one.
      * 
      * <p>
-     * Para saber se é a éltima, o método apenas testa se os valores de origem e desta 
-     * avaliação séo iguais. Se houver vérias avaliações com a mesma resolução em momentos 
-     * diferentes do ciclo de vida do relatório de origem, o método não impede que uma avaliação
-     * com a mesma resolução da éltima modifique o relatório de origem.
+     * To knows if it is the last one, this methods test if origin values from 
+     * that evaluation are equals. If have many evaluation with the same resolution
+     * in different moments of life cycle of origin report, this method does not prevent
+     * an evaluation with the same resolution change the origin report.
      * </p>
      */
     @JsonIgnore
@@ -258,7 +256,7 @@ public class ReportReview
     }
     
     /**
-     * Conveninte para utilizar safeReportResolution como propriedade na camada de apresentação.
+     * To use safeReportResolution as property in presentation  layer.
      */
     @JsonIgnore
     public char getSafeReportResolution() {
@@ -269,9 +267,7 @@ public class ReportReview
     }
     
     /**
-     * Atualiza a resolução junto com a do relatório de origem caso 
-     * não esteja protegida.
-     * 
+     * Update resolution together with origin report.
      * @param resolution
      */
     @JsonIgnore
@@ -302,9 +298,8 @@ public class ReportReview
     }
     
     /**
-     * Verdadeiro se o relatório se encontra numa fase do fluxo de aprovação igual ao nível 
-     * de aprovação do proprietário desta revisão, ou também verdadeiro se o relatório não 
-     * requer fluxo de aprovação.
+     * True if report is in approval flow phase equal to the owner approval level, or true
+     * if report does not request approval flow.
      */
     @JsonIgnore
     protected boolean isOwnerAuthorizedToChangeReport() {
@@ -319,7 +314,7 @@ public class ReportReview
 
     
     /**
-     * Atualiza a fase de aprovação do relatório de origem.
+     * Update approval phase of origin report.
      * 
      * @param workflowPhase
      */
@@ -333,7 +328,8 @@ public class ReportReview
     }
     
     /**
-     * Conveninte para utilizar safeReportProgress como propriedade na camada de apresentação.
+     * 
+     * To use SafeReportProgress as property in presentation  layer.
      */
     @JsonIgnore
     public int getSafeReportProgress() {
@@ -344,9 +340,7 @@ public class ReportReview
     }
     
     /**
-     * Atualiza o progresso do relatório de origem caso 
-     * não esteja protegido.
-     * 
+     * Update origin report progress
      * @param complete
      */
     @JsonIgnore
@@ -365,7 +359,7 @@ public class ReportReview
 	}
 	
     /**
-     * Conteúdo transformado.
+     * Parsed Content.
      */
     public String getParsedContent() {
 		return parsedContent;
@@ -375,7 +369,7 @@ public class ReportReview
 	}
     
 	/**
-	 * <<Transient>> Verdadeiro quando hé uma categoria disponível.
+	 * <<Transient>> true when have available category.
 	 */
     @JsonIgnore
 	protected boolean isCategoryEnabled() {
@@ -383,11 +377,11 @@ public class ReportReview
 	}
 	
     /**
-     * Lista de scripts, como lista CSV dos códigos dos scripts.
+     * Scripst list, as list CSV of scripts codes.
      * 
      * <p>
-     * Os scripts séo extraédos preferencialmente da categoria. Somente se não houver resultado
-     * a pasta é entéo usada para extrair scripts.
+     * Scripsts are extracted from category. Just when does not have result, so folder are user
+     * to extract scripts.
      * </p>
      */
     @JsonIgnore

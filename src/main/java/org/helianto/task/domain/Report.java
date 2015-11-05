@@ -61,7 +61,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Relatórios.
+ * Report.
  * 
  * @author Mauricio Fernandes de Castro
  */
@@ -979,7 +979,7 @@ public class Report
 	}
     
     /**
-     * Nome do arquivo externo.
+     * External folder name.
      */
     public String getReportFile() {
 		return reportFile;
@@ -989,7 +989,7 @@ public class Report
 	}
     
     /**
-     * Tipo do arquivo externo.
+     * Type of external folder.
      */
     public String getReportFileContentType() {
 		return reportFileContentType;
@@ -1017,11 +1017,11 @@ public class Report
 	}
 	
 	/*
-	 * Campos destinados ao monitoramento de relatórios.
+	 * Monitoring reports.
 	 */
 	
 	/**
-	 * Tamanho ou esforço planejado.
+	 * Size or effort planned.
 	 */
 	public BigDecimal getForecastWork() {
 		return forecastWork;
@@ -1031,7 +1031,7 @@ public class Report
 	}
 	
 	/**
-	 * Tamanhou ou esforço realizado.
+	 * Size or effort realized.
 	 */
 	public BigDecimal getActualWork() {
 		return actualWork;
@@ -1045,7 +1045,7 @@ public class Report
 	}
 	
 	/**
-	 * Tamanho relativo.
+	 * Relative Size.
 	 */
 	public int getRelativeSize() {
 		return relativeSize;
@@ -1055,10 +1055,10 @@ public class Report
 	}
 	
 	/**
-	 * Progresso restante, complementar ao progresso já ocorrido.
+	 * Remaining progress, additional to progress already occured.
 	 * 
 	 * <p>
-	 * Pela fórmula: (1 - (${complete}/100)).
+	 * Formula: (1 - (${complete}/100)).
 	 * </p>
 	 */
 	public BigDecimal getRemainingProgress() {
@@ -1066,9 +1066,9 @@ public class Report
 	}
 	
 	/**
-	 * Tamanho restante, calculado em função do progresso restante.
+	 * Remaining size,  calculated in function of remaining progress.
 	 * <p>
-	 * Pela fórmula: (${relativeSize} * ${remainingProgress}).
+	 * Formula: (${relativeSize} * ${remainingProgress}).
 	 * </p>
 	 */
 	public BigDecimal getRemainingSize() {
@@ -1076,7 +1076,7 @@ public class Report
 	}
 	
 	/*
-	 * Implementação da interface programmable, para uso com scripts.
+	 * Implementation of interface programmable, to use scripts.
 	 */
 	
 	public String[] getScriptItemsAsArray() {
@@ -1101,7 +1101,7 @@ public class Report
 	}
 	
     /**
-     * Conjunto de participantes.
+     * Participants
      */
     public Set<Participant> getParticipants() {
         return this.participants;
@@ -1111,7 +1111,7 @@ public class Report
     }
     
 	/**
-	 * Ordem dos acompanhamentos.
+	 * Follow Up Order.
 	 */
     public char getFollowUpOrder() {
         return this.followUpOrder;
@@ -1124,7 +1124,7 @@ public class Report
     }
     
     /**
-     * Lista de itens separados por virgula para controlar a visualização.
+     * List of items separate by comma to controlling visualization.
      */
     public String getPresentationOrder() {
 		return presentationOrder;
@@ -1134,7 +1134,8 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Matriz de ordem de apresentação.
+     * <<Transient>> Matrix of order of presentation. 
+     * 
      */
     public String[] getPresentationOrderAsArray() {
 		return StringListUtils.stringToArray(getPresentationOrder());
@@ -1144,7 +1145,7 @@ public class Report
 	}
 
 	/**
-     * Lista de itens separados por virgula para manter a rastreabilidade.
+	 * List of items separate by comma to keep traceability.
      */
     public String getTraceability() {
 		return traceability;
@@ -1154,7 +1155,7 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Lista de rastreabilidade.
+     * <<Transient>> List of traceability.
      */
     public String[] getTraceabilityAsArray() {
 		return StringListUtils.stringToArray(getTraceability());
@@ -1164,7 +1165,7 @@ public class Report
 	}
     
     /**
-     * Tipo de solicitação (interna, externa).
+     * Type Request.
      */
     public char getRequestType() {
         return this.requestType;
@@ -1177,7 +1178,7 @@ public class Report
     }
 
     /**
-     * Tipo de ação (cntrole, execução).
+     * Action Type 
      */
     public char getActionType() {
         return this.actionType;
@@ -1190,7 +1191,7 @@ public class Report
     }
     
     /**
-     * Fase.
+     * Phase.
      */
     public char getPhase() {
 		return phase;
@@ -1200,7 +1201,7 @@ public class Report
 	}
     
     /**
-     * Fase como uma instância da classe Phase.
+     * Phase like instance of class Phase.
      */
     @JsonIgnore
     public ReportPhase getPhaseAsObject() {
@@ -1215,7 +1216,7 @@ public class Report
 	}
     
     /**
-     * Categoria.
+     * Category.
      * @see {@link Partner}
      */
     @JsonIgnore
@@ -1238,7 +1239,7 @@ public class Report
 	}
     
 	/**
-	 * <<Transient>> Verdadeiro se a categoria é da pasta.
+	 * <<Transient>> True if category it's the folder.
 	 */
     @JsonIgnore
 	public boolean isFolderCategoryEnabled() {
@@ -1246,10 +1247,10 @@ public class Report
 	}
 	
 	/**
-	 * <<Transient>> Permite que as subclasses atualizem a categoria em função do estado do relatório.
+	 * <<Transient>> Allow subclass update category in function of state of report. 
 	 * 
 	 * <p>
-	 * Implementação padrão herda a categoria da pasta, quando houver.
+	 * Default implementation inherits category of folder.
 	 * </p>
 	 */
     @JsonIgnore
@@ -1264,7 +1265,7 @@ public class Report
 	}
 	
 	/**
-	 * <<Transient>> Verdadeiro se a categoria existe.
+	 * <<Transient>> True if category exists.
 	 */
     @JsonIgnore
 	public boolean isCategoryEnabled() {
@@ -1272,7 +1273,7 @@ public class Report
 	}
 	
 	/**
-	 * <<Transient>> Verdadeiro se pode substituir a categoria da pasta.
+	 * <<Transient>> True if is allowed override folder. 
 	 */
     @JsonIgnore
 	public boolean isCategoryOverrideAllowed() {
@@ -1280,7 +1281,7 @@ public class Report
 	}
 	
     /**
-     * Conteúdo transformado.
+     * Parsed Content.
      */
     public String getParsedContent() {
 		return parsedContent;
@@ -1290,7 +1291,7 @@ public class Report
 	}
     
     /**
-     * Parceiro.
+     * Partner.
      * @see {@link Partner}
      */
     @JsonIgnore
@@ -1313,7 +1314,7 @@ public class Report
 	}
     
 	/**
-	 * <<Transient>> Propriedades derivadas da categoria.
+	 * <<Transient>> Properties from category.
 	 */
     @JsonIgnore
 	public Map<String, Object> getCustomPropertiesAsMap() {
@@ -1324,7 +1325,7 @@ public class Report
 	}
 	
     /**
-     * <<Transient>> Lista de responsabilidades convertida em matriz.
+     * <<Transient>> List of responsibilities converted on matrix.  
      */
     @JsonIgnore
     public String[] getCustomWorkflowRolesAsArray() {
@@ -1335,7 +1336,8 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Lista de responsabilidades convertida em mapa.
+     * <<Transient>> List of responsibilities converted on map.  
+     * 
      */
     @JsonIgnore
     public Map<String, String> getCustomWorkflowRolesAsMap() {
@@ -1359,12 +1361,8 @@ public class Report
 		return null;
 	}
     
-    /*
-     * Métodos da interface <tt>WorkflowTarget</tt>.
-     */
-    
     /**
-     * Fase do workflow.
+     * Phase of workflow.
      */
     public int getWorkflowPhase() {
 		return workflowPhase;
@@ -1374,24 +1372,22 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Determina, através da lista de responsabilidades, o tamanho da lista
-     * de aprovação do workflow.
+     * <<Transient>> Determine through list of responsibilities, size list of approval workflow.
      */
     public int getWorkflowSize() {
     	return getCustomWorkflowRolesAsArray().length;
     }
     
     /**
-     * <<Transient>> Determina, através da lista de responsabilidades, se o workflow 
-     * é requerido para este relatório.
+     * <<Transient>> Determine, through list of responsibilities  if workflow
+     * is required to this report.
      */
     public boolean isWorkflowRequired() {
     	return getWorkflowSize() > 0;
     }
     
     /**
-     * <<Transient>> Quando o workflow é requerido, somente pode ser fechado se o
-     * relatório estiver em sua última fase.
+     * <<Transient>> When workflow is require, just can be closed if the report are in your last phase.
      */
     public boolean isWorkflowClosable() {
     	if (isWorkflowRequired() && getWorkflowPhase()!=getWorkflowSize()) {
@@ -1401,14 +1397,14 @@ public class Report
     }
     
     /**
-     * <<Transient>> Determina o avanço obtido em cada etapa do workflow.
+     * <<Transient>> Determines obtained advance in every stage of workflow.
      */
     public int getWorkflowProgressIncrement() {
     	return 0;
     }
     
     /**
-     * Reere-se à sequência escolhida para o pricipal documento.
+     * Refer to a sequence chosen to principal document.
      */
     public int getMainRequirementSequence() {
 		return mainRequirementSequence;
@@ -1418,7 +1414,7 @@ public class Report
 	}
     
     /**
-     * Conjunto de acompanhamentos.
+     * Set of accompaniment.
      */
     @JsonIgnore
     public Set<FollowUp> getFollowUps() {
@@ -1429,7 +1425,7 @@ public class Report
     }
     
     /**
-	 * <<Transient>> Lista ordenada de acompanhamentos.
+	 * <<Transient>> List order by accompaniment.
 	 */
     @JsonIgnore
     public List<FollowUp> getFollowUpOrderedList() {
@@ -1440,7 +1436,7 @@ public class Report
     }
     
     /**
-     * <<Transient>> Lista descendentes.
+     * <<Transient>> List children.
      * 
      */
     @JsonIgnore
@@ -1452,7 +1448,7 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Conta itens.
+     * <<Transient>> Count items.
      */
     public int getCountItems() {
 		return countItems;
@@ -1462,7 +1458,7 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Conta alertas.
+     * <<Transient>> Count Alerts.
      */
     public int getCountAlerts() {
 		return countAlerts;
@@ -1472,7 +1468,7 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Conta avisos.
+     * <<Transient>> Count Warnings.
      */
     public int getCountWarnings() {
 		return countWarnings;
@@ -1482,7 +1478,7 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Conta votos.
+     * <<Transient>> Count likes.
      */
     public int getCountLikes() {
 		return countLikes;
@@ -1492,7 +1488,7 @@ public class Report
 	}
     
     /**
-     * <<Transient>> Indica favorito.
+     * <<Transient>> Indicates favourite.
      */
     public char getFavourite() {
 		return favourite;
@@ -1502,7 +1498,7 @@ public class Report
 	}
     
 	/**
-	 * Comparador para acompanhamentos.
+	 * Comparator to accompaniment.
 	 */
     public int compare(FollowUp followUp, FollowUp other) {
     	if (getFollowUpOrder()==FollowUpOrder.FIRST_DATE_ON_TOP.getValue()) {
