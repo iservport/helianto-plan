@@ -15,6 +15,7 @@
 
 package org.helianto.task.domain;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -178,23 +179,23 @@ public class ReportFolder
 	  * @param command
   	  **/
 	public ReportFolder merge(ReportFolder command) {
-			setEncoding(command.getEncoding());
-			setReportNumberPattern(command.getReportNumberPattern());
-			setPatternSuffix(command.getPatternSuffix());
-			setParsedContent(command.getParsedContent());
-			setPrivacyLevel(command.getPrivacyLevel());
-			setZIndex(command.getZIndex());
-			setFolderCaption(command.getFolderCaption());
-			setParentPath(command.getParentPath());
-			setNature(command.getNature());
-			setResolution(command.getResolution());
-			setTraceabilityItems(command.getTraceabilityItems());
-			setStartDate(command.getStartDate());
-			setEndDate(command.getEndDate());
-			setVolumeTags(command.getVolumeTags());
-			return this;
-		}
-	
+		super.merge(command);
+		setEncoding(command.getEncoding());
+		setReportNumberPattern(command.getReportNumberPattern());
+		setPatternSuffix(command.getPatternSuffix());
+		setParsedContent(command.getParsedContent());
+		setPrivacyLevel(command.getPrivacyLevel());
+		setZIndex(command.getZIndex());
+		setFolderCaption(command.getFolderCaption());
+		setParentPath(command.getParentPath());
+		setNature(command.getNature());
+		setResolution(command.getResolution());
+		setTraceabilityItems(command.getTraceabilityItems());
+		setStartDate(command.getStartDate());
+		setEndDate(command.getEndDate());
+		setVolumeTags(command.getVolumeTags());
+		return this;
+	}
 	
     /** 
      * Required constructor.
@@ -348,6 +349,7 @@ public class ReportFolder
 
     /**
      * Generation codes of reports folders.
+     * @deprecated
      */
     public String getReportNumberPattern() {
     	return internalReportNumberPattern(reportNumberPattern);
@@ -363,6 +365,13 @@ public class ReportFolder
 		this.patternSuffix = patternSuffix;
 	}
     
+    /**
+     * Apply a number pattern to build a docCode.
+     */
+	public String applyNumberPattern(long internalNumber) {
+		return new DecimalFormat(getNumberPattern()).format(internalNumber);
+	}
+
     /**
      * Allow subclass change the default generation codes of reports.
      * 
