@@ -173,30 +173,6 @@ public class ReportFolder
 	@Transient
     private List<String> transientScriptContents = new ArrayList<String>();
     
-	/**
-	  * Merger.
-	  * 
-	  * @param command
-  	  **/
-	public ReportFolder merge(ReportFolder command) {
-		super.merge(command);
-		setEncoding(command.getEncoding());
-		setReportNumberPattern(command.getReportNumberPattern());
-		setPatternSuffix(command.getPatternSuffix());
-		setParsedContent(command.getParsedContent());
-		setPrivacyLevel(command.getPrivacyLevel());
-		setZIndex(command.getZIndex());
-		setFolderCaption(command.getFolderCaption());
-		setParentPath(command.getParentPath());
-		setNature(command.getNature());
-		setResolution(command.getResolution());
-		setTraceabilityItems(command.getTraceabilityItems());
-		setStartDate(command.getStartDate());
-		setEndDate(command.getEndDate());
-		setVolumeTags(command.getVolumeTags());
-		return this;
-	}
-	
     /** 
      * Required constructor.
      */
@@ -252,8 +228,12 @@ public class ReportFolder
      * Form constructor.
      * 
      * @param id
-     * @param entityId
      * @param folderCode
+     * @param folderName
+     * @param folderDecorationUrl
+     * @param patternPrefix
+     * @param numberOfDigits
+     * @param contentType
      * @param content
      * @param encoding
      * @param ownerId
@@ -274,9 +254,13 @@ public class ReportFolder
      * @param volumeTags
      * @param categoryOverrideAllowed
      */
-    public ReportFolder(Integer id
-    		, Integer entityId
+    public ReportFolder(int id
     		, String folderCode
+    		, String folderName
+    		, String folderDecorationUrl
+    		, String patternPrefix
+    		, Integer numberOfDigits
+			, char contentType
     		, byte[] content
     		, String encoding
     		, Integer ownerId
@@ -297,10 +281,7 @@ public class ReportFolder
     		, String volumeTags
     		, Boolean categoryOverrideAllowed
     		) {
-		this();
-		setId(id);
-		setEntityId(entityId!=null ? entityId:0);
-		setFolderCode(folderCode);
+		super(id, folderCode, folderName, folderDecorationUrl, patternPrefix, numberOfDigits, contentType);
 		setContent(content);
 		setEncoding(encoding);
 		setOwnerId(ownerId!=null ? ownerId:0);
@@ -322,6 +303,13 @@ public class ReportFolder
 		setCategoryOverrideAllowed(categoryOverrideAllowed!=null ? categoryOverrideAllowed:false);
 	}
     
+    
+	public ReportFolder(int id, String folderCode, String folderName, String folderDecorationUrl, String patternPrefix,
+			Integer numberOfDigits, char contentType) {
+		super(id, folderCode, folderName, folderDecorationUrl, patternPrefix, numberOfDigits, contentType);
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
      * Content type as enum.
      */
@@ -851,6 +839,30 @@ public class ReportFolder
 		this.parsedContent = parsedContent;
 	}
 
+	/**
+	  * Merger.
+	  * 
+	  * @param command
+ 	  **/
+	public ReportFolder merge(ReportFolder command) {
+		super.merge(command);
+		setEncoding(command.getEncoding());
+		setReportNumberPattern(command.getReportNumberPattern());
+		setPatternSuffix(command.getPatternSuffix());
+		setParsedContent(command.getParsedContent());
+		setPrivacyLevel(command.getPrivacyLevel());
+		setZIndex(command.getZIndex());
+		setFolderCaption(command.getFolderCaption());
+		setParentPath(command.getParentPath());
+		setNature(command.getNature());
+		setResolution(command.getResolution());
+		setTraceabilityItems(command.getTraceabilityItems());
+		setStartDate(command.getStartDate());
+		setEndDate(command.getEndDate());
+		setVolumeTags(command.getVolumeTags());
+		return this;
+	}
+	
     /**
      * equals
      */
