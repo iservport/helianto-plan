@@ -1514,7 +1514,6 @@ public class Report
   	  **/
    		public Report merge(Report command) {
    			super.merge(command);
-   			setReportCode(command.getReportCode());
    			setPrefix(command.getPrefix());
    			setSummary(command.getSummary());
    			setNature(command.getNature());
