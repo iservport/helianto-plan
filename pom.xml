@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.helianto</groupId>
 	<artifactId>helianto-plan</artifactId>
-	<version>0.5.0-SNAPSHOT</version>
+	<version>0.5.0-RELEASE</version>
 	<name>helianto-plan</name>
 		
 	<description>plan tools</description>
@@ -33,9 +33,9 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<helianto.version>0.5.0-SNAPSHOT</helianto.version>
 	</properties>
 
 	<dependencies>
@@ -72,32 +72,10 @@
 			<version>3.0</version>
 		</dependency>
 
-<!-- 		<dependency>
-			<groupId>org.helianto</groupId>
-			<artifactId>helianto-inventory</artifactId>
-			<version>${helianto.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.easymock</groupId>
-					<artifactId>easymock</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
- 		<dependency>
-			<groupId>org.helianto</groupId>
-			<artifactId>helianto-resource</artifactId>
-			<version>${helianto.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.easymock</groupId>
-					<artifactId>easymock</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>-->
 		<dependency>
 			<groupId>org.helianto</groupId>
 			<artifactId>helianto-document</artifactId>
-			<version>${helianto.version}</version>
+			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.easymock</groupId>
