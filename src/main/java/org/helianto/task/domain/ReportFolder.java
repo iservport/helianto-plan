@@ -866,6 +866,26 @@ public class ReportFolder
 		return this;
 	}
 	
+	/**
+	 * Running percent.
+	 */
+	public int getRunningPercent() {
+		if (getCountItems()>0) {
+			return (getCountWarnings() / getCountItems()) * 100;
+		}
+		return 0;
+	}
+	
+	/**
+	 * Late percent.
+	 */
+	public int getLatePercent() {
+		if (getCountItems()>0) {
+			return (getCountAlerts() / getCountItems()) * 100;
+		}
+		return 0;
+	}
+	
     /**
      * equals
      */
