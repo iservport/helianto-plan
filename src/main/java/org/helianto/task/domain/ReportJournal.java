@@ -50,6 +50,8 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date issueDate;
 	
+	private int day;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(length=24)
 	private ReportJournalType reportJournalType = ReportJournalType.PRJ_CHECK_IN;
@@ -161,6 +163,17 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	}
 	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
+		setDay((int) (issueDate!=null?issueDate.getTime()/(1000*60*60*24):0));
+	}
+	
+	/**
+	 * Day used to make groups.
+	 */
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
 	}
 
 	/**

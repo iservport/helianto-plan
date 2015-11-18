@@ -73,5 +73,26 @@ public interface ReportJournalRepository extends JpaRepository<ReportJournal, Se
 			+ "group by report_.id "
 			+ "order by reportJournal_.issueDate DESC ")
 	List<SimpleCounter> findByReportCheckOut(int userId);
+	
+	/**
+	 * Cherry-picking of journal records.
+	 * 
+	 * Only the last id of a group is taken, allowing the DB to remain immutable.
+	 * 
+	 * @param userId
+	 * @param start
+	 * @param end
+	 */
+	@Query("select reportJournal_ "
+			+ "from ReportJournal reportJournal_ "
+			+ "where reportJournal_.id in ("
+			+ "  select max(reportJournal_.id) "
+			+ "  from ReportJournal r_ "
+			+ "  where r_.user.id = ?1 "
+			+ "  group by r_.user.id, r_.report.id, r_.reportJournalType, r_.day "
+			+ ") "
+			+ "and reportJournal_.issueDate between ?2 and ?3 "
+			+ "order by reportJournal_.reportJournalType ")
+	List<ReportJournal> findGroupByDay(int userId, Date start, Date end);
 
 }
