@@ -18,18 +18,19 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.helianto.task.def.ReportJournalType;
 import org.helianto.task.domain.ReportFolder;
 import org.helianto.user.domain.User;
 
 /**
- * A project journal.
+ * A report journal.
  * 
  * @author mauriciofernandesdecastro
  */
 @javax.persistence.Entity
-@Table(name="task_journal",
+@Table(name="task_journal2",
        uniqueConstraints={@UniqueConstraint(columnNames={"userId", "issueDate"})})
-public class ProjectJournal implements Serializable, Comparable<ProjectJournal>  {
+public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -51,19 +52,19 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	
 	@Enumerated(EnumType.STRING)
 	@Column(length=24)
-	private ProjectJournalType projectJournalType = ProjectJournalType.PRJ_CHECK_IN;
+	private ReportJournalType reportJournalType = ReportJournalType.PRJ_CHECK_IN;
 	
 	@Column(length=24)
 	private String journalCode = "";
 	
 	@ManyToOne
-	@JoinColumn(name="reportFolderId")
-	private ReportFolder reportFolder;
+	@JoinColumn(name="reportId")
+	private Report report;
 	
 	@Transient
-	private Integer reportFolderId;
+	private Integer reportId;
 	
-	public ProjectJournal() {
+	public ReportJournal() {
 		super();
 		setIssueDate(new Date());
 	}
@@ -74,7 +75,7 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	 * @param user
 	 * @param issueDate
 	 */
-	public ProjectJournal(User user, Date issueDate) {
+	public ReportJournal(User user, Date issueDate) {
 		this();
 		this.user = user;
 		this.issueDate = issueDate;
@@ -85,11 +86,11 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	 * 
 	 * @param user
 	 * @param issueDate
-	 * @param reportFolder
+	 * @param report
 	 */
-	public ProjectJournal(User user, Date issueDate, ReportFolder reportFolder) {
+	public ReportJournal(User user, Date issueDate, Report report) {
 		this(user, issueDate);
-		setReportFolder(reportFolder);
+		setReport(report);
 	}
 
 	/**
@@ -98,20 +99,18 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	 * @param version
 	 * @param user
 	 * @param issueDate
-	 * @param projectJournalType
+	 * @param reportJournalType
 	 * @param journalCode
 	 * @param reportFolder
 	 */
-	public ProjectJournal(Integer version, User user, Date issueDate,
-			ProjectJournalType projectJournalType, String journalCode,
-			ReportFolder reportFolder) {
+	public ReportJournal(Integer version, User user, Date issueDate,
+			ReportJournalType reportJournalType, String journalCode) {
 		super();
 		this.version = version;
 		this.user = user;
 		this.issueDate = issueDate;
-		this.projectJournalType = projectJournalType;
+		this.reportJournalType = reportJournalType;
 		this.journalCode = journalCode;
-		this.reportFolder = reportFolder;
 	}
 
 	/**
@@ -167,11 +166,11 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	/**
 	 * Type of journal.
 	 */
-	public ProjectJournalType getProjectJournalType() {
-		return projectJournalType;
+	public ReportJournalType getProjectJournalType() {
+		return reportJournalType;
 	}
-	public void setProjectJournalType(ProjectJournalType projectJournalType) {
-		this.projectJournalType = projectJournalType;
+	public void setProjectJournalType(ReportJournalType reportJournalType) {
+		this.reportJournalType = reportJournalType;
 	}
 
 	/**
@@ -185,24 +184,23 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	}
 
 	/**
-	 * Project 
-	 * @return
+	 * Report.
 	 */
-	public ReportFolder getReportFolder() {
-		return reportFolder;
+	public Report getReport() {
+		return report;
 	}
-	public void setReportFolder(ReportFolder reportFolder) {
-		this.reportFolder = reportFolder;
+	public void setReport(Report report) {
+		this.report = report;
 	}
 	
 	/**
-	 * <<Transient>> report folder id.
+	 * <<Transient>> report id.
 	 */
-	public Integer getReportFolderId() {
-		return reportFolderId;
+	public Integer getReportId() {
+		return reportId;
 	}
-	public void setReportFolderId(Integer reportFolderId) {
-		this.reportFolderId = reportFolderId;
+	public void setReportId(Integer reportId) {
+		this.reportId = reportId;
 	}
 
 	@Override
@@ -222,7 +220,7 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProjectJournal other = (ProjectJournal) obj;
+		ReportJournal other = (ReportJournal) obj;
 		if (issueDate == null) {
 			if (other.issueDate != null)
 				return false;
@@ -237,7 +235,7 @@ public class ProjectJournal implements Serializable, Comparable<ProjectJournal> 
 	}
 	
 	@Override
-	public int compareTo(ProjectJournal o) {
+	public int compareTo(ReportJournal o) {
 	    if (getIssueDate() == null || o.getIssueDate() == null)
 	      return 0;
 	    return getIssueDate().compareTo(o.getIssueDate());

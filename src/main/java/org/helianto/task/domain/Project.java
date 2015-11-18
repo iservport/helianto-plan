@@ -44,10 +44,6 @@ public class Project
 	@Lob
 	private String tools;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="reportFolder")
-	private Set<ProjectJournal> projectJournals;
-
 	@Transient
     private Date checkinDate;
 	
@@ -212,13 +208,6 @@ public class Project
     	this.tools = tools;
     }
      
-    public Set<ProjectJournal> getProjectJournals() {
-		return projectJournals;
-	}
-    public void setProjectJournals(Set<ProjectJournal> projectJournals) {
-		this.projectJournals = projectJournals;
-	}
-
  	public Date getCheckinDate() {
  		return checkinDate;
  	}

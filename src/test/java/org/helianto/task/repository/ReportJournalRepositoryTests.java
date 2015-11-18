@@ -6,7 +6,7 @@ import java.util.Date;
 import org.helianto.core.domain.Identity;
 import org.helianto.core.repository.IdentityRepository;
 import org.helianto.core.test.AbstractJpaRepositoryIntegrationTest;
-import org.helianto.task.domain.ProjectJournal;
+import org.helianto.task.domain.ReportJournal;
 import org.helianto.user.domain.User;
 import org.helianto.user.repository.UserRepository;
 import org.junit.runner.RunWith;
@@ -20,11 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class ProjectJournalRepositoryTests extends
-	AbstractJpaRepositoryIntegrationTest<ProjectJournal, ProjectJournalRepository> {
+public class ReportJournalRepositoryTests extends
+	AbstractJpaRepositoryIntegrationTest<ReportJournal, ReportJournalRepository> {
 
 	@Autowired
-	private ProjectJournalRepository repository;
+	private ReportJournalRepository repository;
 	
 	@Autowired
 	private IdentityRepository identityRepository;
@@ -33,7 +33,7 @@ public class ProjectJournalRepositoryTests extends
 	private UserRepository userRepository;
 	
 	@Override
-	protected ProjectJournalRepository getRepository() {
+	protected ReportJournalRepository getRepository() {
 		return repository;
 	}
 	
@@ -44,19 +44,19 @@ public class ProjectJournalRepositoryTests extends
 	private Date now = new Date();
 	
 	@Override
-	protected ProjectJournal getNewTarget() {
+	protected ReportJournal getNewTarget() {
 		identity = identityRepository.saveAndFlush(new Identity("principal"));
 		user = userRepository.saveAndFlush(new User(entity, identity));
-		return new ProjectJournal(user, now);
+		return new ReportJournal(user, now);
 	}
 	
 	@Override
-	protected Serializable getTargetId(ProjectJournal target) {
+	protected Serializable getTargetId(ReportJournal target) {
 		return target.getId();
 	}
 	
 	@Override
-	protected ProjectJournal findByKey() {
+	protected ReportJournal findByKey() {
 		return getRepository().findByUserAndIssueDate(user, now);
 	}
 

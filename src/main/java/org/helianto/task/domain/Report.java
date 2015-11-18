@@ -197,6 +197,10 @@ public class Report
     @OneToMany(mappedBy="report")
     private Set<FollowUp> followUps = new HashSet<FollowUp>(0);
     
+	@JsonIgnore
+	@OneToMany(mappedBy="report")
+	private Set<ReportJournal> reportJournals;
+
     @Transient
     private List<FollowUp> followUpList;
     
@@ -1445,6 +1449,16 @@ public class Report
     }
     public void setChildren(List<Report> children) {
 		this.children = children;
+	}
+    
+    /**
+     * Report journals.
+     */
+    public Set<ReportJournal> getReportJournals() {
+		return reportJournals;
+	}
+    public void setReportJournals(Set<ReportJournal> reportJournals) {
+		this.reportJournals = reportJournals;
 	}
     
     /**

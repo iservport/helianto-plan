@@ -1,11 +1,11 @@
-package org.helianto.task.domain;
+package org.helianto.task.def;
 
 /**
- * Project journal types.
+ * Report journal types.
  * 
  * @author mauriciofernandesdecastro
  */
-public enum ProjectJournalType {
+public enum ReportJournalType {
 	
 	CLOCK_IN, CLOCK_OUT, EXTRA_ACTIVITY, USER_CHECK_IN, USER_CHECK_OUT, PRJ_CHECK_IN, PRJ_CHECK_OUT;	
 	
