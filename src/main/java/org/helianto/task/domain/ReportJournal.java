@@ -153,7 +153,7 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	 * <<Transient>> user id.
 	 */
 	public Integer getUserId() {
-		return userId;
+		return user!=null ? user.getId(): userId;
 	}
 	public void setUserId(Integer userId) {
 		this.userId = userId;
@@ -214,7 +214,7 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	 * <<Transient>> report id.
 	 */
 	public Integer getReportId() {
-		return reportId;
+		return report!=null ? report.getId(): reportId;
 	}
 	public void setReportId(Integer reportId) {
 		this.reportId = reportId;
