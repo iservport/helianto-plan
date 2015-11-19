@@ -92,7 +92,7 @@ public interface ReportJournalRepository extends JpaRepository<ReportJournal, Se
 			+ "  group by r_.report.id, r_.reportJournalType, r_.day "
 			+ ") "
 			+ "and reportJournal_.issueDate between ?2 and ?3 "
-			+ "order by reportJournal_.report.id, reportJournal_.reportJournalType ")
+			+ "order by reportJournal_.eventDate DESC, reportJournal_.reportJournalType ASC ")
 	List<ReportJournal> findGroupByDay(int userId, Date start, Date end);
 
 }
