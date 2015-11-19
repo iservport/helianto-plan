@@ -52,6 +52,9 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date issueDate;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date eventDate;
+	
 	private int day;
 	
 	@Enumerated(EnumType.STRING)
@@ -168,6 +171,16 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
 		setDay((int) (issueDate!=null?issueDate.getTime()/(1000*60*60*24):0));
+	}
+	
+	/**
+	 * Event date.
+	 */
+	public Date getEventDate() {
+		return eventDate;
+	}
+	public void setEventDate(Date eventDate) {
+		this.eventDate = eventDate;
 	}
 	
 	/**
