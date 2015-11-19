@@ -1235,6 +1235,9 @@ public class Report
 	 * <<Transient>> category id.
 	 */
     public Integer getCategoryId() {
+    	if (category!=null) {
+    		return category.getId();
+    	}
 		return categoryId;
 	}
     public Report setCategoryId(Integer categoryId) {
