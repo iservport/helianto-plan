@@ -74,7 +74,9 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	
 	public ReportJournal() {
 		super();
-		setIssueDate(new Date());
+		Date issued = new Date();
+		setIssueDate(issued);
+		setEventDate(issued);
 	}
 	
 	/**
@@ -82,11 +84,13 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	 * 
 	 * @param user
 	 * @param issueDate
+	 * @param eventDate
 	 */
-	public ReportJournal(User user, Date issueDate) {
+	public ReportJournal(User user, Date issueDate, Date eventDate) {
 		this();
 		this.user = user;
 		this.issueDate = issueDate;
+		this.eventDate = eventDate;
 	}
 
 	/**
@@ -94,10 +98,11 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	 * 
 	 * @param user
 	 * @param issueDate
+	 * @param eventDate
 	 * @param report
 	 */
-	public ReportJournal(User user, Date issueDate, Report report) {
-		this(user, issueDate);
+	public ReportJournal(User user, Date issueDate, Date eventDate, Report report) {
+		this(user, issueDate, eventDate);
 		setReport(report);
 	}
 
@@ -107,16 +112,17 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	 * @param version
 	 * @param user
 	 * @param issueDate
+	 * @param eventDate
 	 * @param reportJournalType
 	 * @param journalCode
 	 * @param reportFolder
 	 */
-	public ReportJournal(Integer version, User user, Date issueDate,
-			ReportJournalType reportJournalType, String journalCode) {
-		super();
+	public ReportJournal(Integer version, User user, Date issueDate, Date eventDate
+			, ReportJournalType reportJournalType, String journalCode) {
 		this.version = version;
 		this.user = user;
 		this.issueDate = issueDate;
+		this.eventDate = eventDate;
 		this.reportJournalType = reportJournalType;
 		this.journalCode = journalCode;
 	}
@@ -196,10 +202,10 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	/**
 	 * Type of journal.
 	 */
-	public ReportJournalType getProjectJournalType() {
+	public ReportJournalType getReportJournalType() {
 		return reportJournalType;
 	}
-	public void setProjectJournalType(ReportJournalType reportJournalType) {
+	public void setReportJournalType(ReportJournalType reportJournalType) {
 		this.reportJournalType = reportJournalType;
 	}
 

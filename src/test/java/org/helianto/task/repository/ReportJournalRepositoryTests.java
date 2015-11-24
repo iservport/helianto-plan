@@ -47,7 +47,7 @@ public class ReportJournalRepositoryTests extends
 	protected ReportJournal getNewTarget() {
 		identity = identityRepository.saveAndFlush(new Identity("principal"));
 		user = userRepository.saveAndFlush(new User(entity, identity));
-		return new ReportJournal(user, now);
+		return new ReportJournal(user, now, now);
 	}
 	
 	@Override
