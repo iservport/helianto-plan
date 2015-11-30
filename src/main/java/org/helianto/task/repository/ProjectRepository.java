@@ -52,7 +52,8 @@ public interface ProjectRepository
 			+ "  project_.assumptions, "
 			+ "  project_.deliverables, "
 			+ "  project_.constraints, "
-			+ "  project_.tools"
+			+ "  project_.tools, "
+			+ "  project_.estimate "
 			+ ") "
 			+ "from Project project_ ";	
 	

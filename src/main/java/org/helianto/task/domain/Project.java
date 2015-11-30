@@ -44,6 +44,8 @@ public class Project
 	@Lob
 	private String tools;
 	
+	private int estimate;
+	
 	@Transient
     private Date checkinDate;
 	
@@ -122,6 +124,7 @@ public class Project
 	 * @param deliverables
 	 * @param constraints
 	 * @param tools
+	 * @param estimate
 	 */
 	public Project(int id
 			, String folderCode
@@ -153,7 +156,8 @@ public class Project
 			, String assumptions
 			, String deliverables
 			, String constraints
-			, String tools) {
+			, String tools
+			, int estimate) {
 		super(id, folderCode, folderName, folderDecorationUrl, patternPrefix, numberOfDigits, contentType, content, encoding,
 				ownerId, reportNumberPattern, patternSuffix, parsedContent, categoryId, privacyLevel, zIndex, partnerId,
 				userGroupId, folderCaption, parentPath, nature, resolution, traceabilityItems, startDate, endDate, volumeTags,
@@ -163,6 +167,7 @@ public class Project
 		setDeliverables(deliverables);
 		setConstraints(constraints);
 		setTools(tools);
+		setEstimate(estimate);
 	}
 	
 	public Project(User user, char contentType) {
@@ -207,6 +212,13 @@ public class Project
     public void setTools(String tools){
     	this.tools = tools;
     }
+    
+    public int getEstimate() {
+		return estimate;
+	}
+    public void setEstimate(int estimate) {
+		this.estimate = estimate;
+	}
      
  	public Date getCheckinDate() {
  		return checkinDate;
