@@ -7,8 +7,34 @@ package org.helianto.task.def;
  */
 public enum Resolution2 {
 	
+	/**
+	 * Not yet a commitment.
+	 */
+	FORECAST,
+	
+	/**
+	 * Planned, something to be done.
+	 */
 	TODO,
+	
+	/**
+	 * Actually running.
+	 */
 	DOING,
-	DONE;
+	
+	/**
+	 * Done, or closed successfully.
+	 */
+	DONE,
+	
+	/**
+	 * Temporarily suspended.
+	 */
+	SUSPENDED,
+	
+	/**
+	 * Permanently cancelled.
+	 */
+	CANCELLED;
 
 }
