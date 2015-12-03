@@ -144,7 +144,7 @@ public class ReportFolder
 	@Column(length=12)
     private String nature = "";
 	
-	@Column(length=6)
+	@Column(length=12)
 	@Enumerated(EnumType.STRING)
 	private Resolution2 resolution;
 	
