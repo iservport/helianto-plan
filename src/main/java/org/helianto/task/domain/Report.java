@@ -1094,7 +1094,7 @@ public class Report
 		if (isCategoryEnabled()) {
 			return getCategory().getScriptList();
 		}
-		return null;
+		return new ArrayList<String>();
 	}
 	
     public String getScriptItems() {
