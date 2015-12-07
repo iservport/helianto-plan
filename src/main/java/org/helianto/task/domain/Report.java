@@ -1549,6 +1549,10 @@ public class Report
    			setParsedContent(command.getParsedContent());
    			setWorkflowPhase(command.getWorkflowPhase());
    			setMainRequirementSequence(command.getMainRequirementSequence());
+   			
+   			setContentAsString(command.getContentAsString());
+   			setPriority(command.getPriority());
+
    			return this;
    		}
     
