@@ -160,6 +160,9 @@ public class ReportFolder
 	@Column(length=128)
 	private String volumeTags = "";
 	
+	@Column(length=128)
+	private String externalLink = "";
+	
 	private Boolean categoryOverrideAllowed = false;
 	
 	@JsonIgnore
@@ -816,6 +819,16 @@ public class ReportFolder
 	}
 	
 	/**
+	 * Optional external link.
+	 */
+	public String getExternalLink() {
+		return externalLink;
+	}
+	public void setExternalLink(String externalLink) {
+		this.externalLink = externalLink;
+	}
+	
+	/**
 	 * <<Transient>> Convenient to convert tags of volume to a matrix. 
 	 */
 	public String[] getVolumeTagsAsArray() {
@@ -863,6 +876,7 @@ public class ReportFolder
 		setStartDate(command.getStartDate());
 		setEndDate(command.getEndDate());
 		setVolumeTags(command.getVolumeTags());
+		setExternalLink(command.getExternalLink());
 		return this;
 	}
 	
