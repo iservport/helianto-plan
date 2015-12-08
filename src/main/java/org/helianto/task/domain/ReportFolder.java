@@ -84,6 +84,7 @@ public class ReportFolder
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@Lob
 	private byte[] content ="".getBytes();
 	
