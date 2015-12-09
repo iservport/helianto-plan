@@ -27,6 +27,7 @@ public class UploadableContent
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	@Lob
 	private byte[] content;
 	

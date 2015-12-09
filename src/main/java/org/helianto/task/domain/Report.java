@@ -871,8 +871,7 @@ public class Report
 		setNature(StringListUtils.arrayToString(natureArray));
 	}
 
-
-    
+	@JsonIgnore
     public byte[] getContent() {
     	if (getReportContent()!=null) {
     		return getReportContent().getContent();
