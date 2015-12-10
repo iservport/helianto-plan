@@ -544,6 +544,9 @@ public class Report
      * <<Transient>> reporter id.
      */
 	public Integer getReporterId() {
+		if (getReporter()!=null) {
+			return getReporter().getId();
+		}
 		return reporterId;
 	}
 	public Report setReporterId(Integer reporterId) {
@@ -744,6 +747,7 @@ public class Report
         this.taskDesc = taskDesc;
     }
     
+    @JsonIgnore
     public String getReportDesc() {
         return this.taskDesc;
     }
