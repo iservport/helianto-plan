@@ -220,21 +220,21 @@ public class ReportReview
 		this.workflowLevel = workflowLevel;
 	}
     
-    /**
-     * Update resolution along with origin report.
-     * 
-     * <p>
-     * Should consult if this evaluation is the last one, before realize the update. 
-     * This can be done with method {@link #isReportResolutionProtected()}
-     * </p>
-     */
-    @JsonIgnore
-    public void setReportResolution(char resolution) {
-    	if (getReport()!=null) {
-    		getReport().setResolution(resolution);
-    	}
-    	super.setResolution(resolution);
-    }
+//    /**
+//     * Update resolution along with origin report.
+//     * 
+//     * <p>
+//     * Should consult if this evaluation is the last one, before realize the update. 
+//     * This can be done with method {@link #isReportResolutionProtected()}
+//     * </p>
+//     */
+//    @JsonIgnore
+//    public void setReportResolution(char resolution) {
+//    	if (getReport()!=null) {
+//    		getReport().setResolution(resolution);
+//    	}
+//    	super.setResolution(resolution);
+//    }
     
     /**
      * Protect against changes the resolution of origin report, if this evaluation
@@ -429,7 +429,6 @@ public class ReportReview
         StringBuffer buffer = new StringBuffer();
 
         buffer.append(getClass().getName()).append("@").append(Integer.toHexString(hashCode())).append(" [");
-        buffer.append("report#").append("='").append(getReport().getInternalNumber()).append("' ");
         buffer.append("issueDate").append("='").append(getIssueDate()).append("' ");
         buffer.append("]");
       
