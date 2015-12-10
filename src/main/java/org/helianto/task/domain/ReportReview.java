@@ -31,6 +31,7 @@ import org.helianto.core.domain.Entity;
 import org.helianto.core.domain.Identity;
 import org.helianto.core.internal.AbstractEvent;
 import org.helianto.core.internal.InterpretableCategory;
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -78,6 +79,9 @@ public class ReportReview
     @Column(length=512)
     private String parsedContent = "";
     
+    @Transient
+    private Date nextCheckDate;
+    
 	/** 
 	 * Default constructor.
 	 */
@@ -85,6 +89,17 @@ public class ReportReview
     	super();
         setIssueDate(new Date());
         setTimeKey(getIssueDate().getTime());
+    }
+    
+	/** 
+	 * Next check date constructor.
+	 * 
+	 * @param days
+	 */
+    public ReportReview(int days) {
+    	this();
+    	DateTime nextCheckDate = DateTime.now().withTimeAtStartOfDay().plusDays(days + 1);
+        setNextCheckDate(nextCheckDate.toDate());
     }
     
     /**
@@ -218,6 +233,16 @@ public class ReportReview
 	}
     public void setWorkflowLevel(int workflowLevel) {
 		this.workflowLevel = workflowLevel;
+	}
+    
+    /**
+     * <<Transient>> next check date.
+     */
+    public Date getNextCheckDate() {
+		return nextCheckDate;
+	}
+    public void setNextCheckDate(Date nextCheckDate) {
+		this.nextCheckDate = nextCheckDate;
 	}
     
 //    /**
