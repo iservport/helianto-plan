@@ -198,6 +198,9 @@ public class ReportReview
      * <<Transient>> report id.
      */
     public Integer getReportId() {
+    	if (getReport()!=null) {
+    		return getReport().getId();
+    	}
 		return reportId;
 	}
     public ReportReview setReportId(Integer reportId) {
