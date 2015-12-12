@@ -863,6 +863,7 @@ public class ReportFolder
  	  **/
 	public ReportFolder merge(ReportFolder command) {
 		super.merge(command);
+		setContentAsString(command.getContentAsString());
 		setEncoding(command.getEncoding());
 		setReportNumberPattern(command.getReportNumberPattern());
 		setPatternSuffix(command.getPatternSuffix());
