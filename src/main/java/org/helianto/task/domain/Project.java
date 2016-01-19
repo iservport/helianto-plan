@@ -1,20 +1,15 @@
 package org.helianto.task.domain;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.helianto.core.domain.Entity;
 import org.helianto.task.def.ReportFolderContentType;
 import org.helianto.task.def.Resolution2;
-import org.helianto.task.domain.ReportFolder;
 import org.helianto.user.domain.User;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Projects.
@@ -45,6 +40,8 @@ public class Project
 	private String tools;
 	
 	private int estimate;
+	
+	private Character estimateType = 'P';
 	
 	@Transient
     private Date checkinDate;
@@ -219,6 +216,13 @@ public class Project
     public void setEstimate(int estimate) {
 		this.estimate = estimate;
 	}
+    
+    public Character getEstimateType() {
+		return estimateType;
+	}
+    public void setEstimateType(Character estimateType) {
+		this.estimateType = estimateType;
+	}
      
  	public Date getCheckinDate() {
  		return checkinDate;
@@ -233,12 +237,14 @@ public class Project
       * @param command
       */
      public Project merge(Project command) {
-    	 super.merge(command);
+    	super.merge(command);
  		setBenefits(command.getBenefits());
  		setAssumptions(command.getAssumptions());
  		setDeliverables(command.getDeliverables());
  		setConstraints(command.getConstraints());
  		setTools(command.getTools());
+ 		setEstimate(command.getEstimate());
+ 		setEstimateType(command.getEstimateType());
  		return this;
      }
 }

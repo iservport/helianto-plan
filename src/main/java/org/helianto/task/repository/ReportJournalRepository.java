@@ -88,12 +88,7 @@ public interface ReportJournalRepository extends JpaRepository<ReportJournal, Se
 			+ "where reportJournal_.id in ("
 				+ "  select max(r_.id) "
 				+ "  from ReportJournal r_ "
-				+ "  where r_.user.id = ?1 AND r_.reportJournalType = 'PRJ_CHECK_OUT'"
-				+ "  group by r_.report.id, r_.reportJournalType, r_.day) "
-			+ "OR reportJournal_.id in ("
-				+ "  select min(r_.id) "
-				+ "  from ReportJournal r_ "
-				+ "  where r_.user.id = ?1 AND r_.reportJournalType = 'PRJ_CHECK_IN'"
+				+ "  where r_.user.id = ?1 "
 				+ "  group by r_.report.id, r_.reportJournalType, r_.day) "
 			+ "and reportJournal_.issueDate between ?2 and ?3 "
 			+ "order by reportJournal_.eventDate DESC, reportJournal_.reportJournalType ASC ")
