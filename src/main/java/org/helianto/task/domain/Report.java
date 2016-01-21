@@ -183,7 +183,7 @@ public class Report
     private Category category;
     
     @Transient
-    private Integer categoryId;
+    private Integer categoryId = 0;
     
     private int workflowPhase = 0;
     
