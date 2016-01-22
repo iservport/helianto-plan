@@ -89,6 +89,12 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 	<!-- ! build -->
 	<build>
