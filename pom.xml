@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.helianto</groupId>
 	<artifactId>helianto-plan</artifactId>
-	<version>0.5.2-SNAPSHOT</version>
+	<version>0.5.2-RELEASE</version>
 	<name>helianto-plan</name>
 		
 	<description>plan tools</description>
