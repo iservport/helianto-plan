@@ -107,6 +107,20 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	}
 
 	/**
+	 * New constructor.
+	 * 
+	 * @param user
+	 * @param issueDate
+	 * @param eventDate
+	 * @param report
+	 * @param reportJournalType
+	 */
+	public ReportJournal(User user, Date issueDate, Date eventDate, Report report, ReportJournalType reportJournalType) {
+		this(user, issueDate, eventDate, report);
+		setReportJournalType(reportJournalType);
+	}
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param version

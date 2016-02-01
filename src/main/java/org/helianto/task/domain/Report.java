@@ -94,7 +94,7 @@ public class Report
 
     private static final long serialVersionUID = 1L;
 	
-    @Column(length=12)
+    @Column(length=36)
     private String reportCode = "";
     
     private int runState;
