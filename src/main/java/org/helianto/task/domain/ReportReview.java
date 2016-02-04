@@ -17,6 +17,7 @@ package org.helianto.task.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -172,8 +173,20 @@ public class ReportReview
      * @param owner
      */
     public ReportReview(Report report, Identity owner) {
-    	this(report);
-    	setOwner(owner);
+    	this(Objects.requireNonNull(report, "Report must not be null"));
+    	setOwner(Objects.requireNonNull(owner, "Owner must not be null"));
+    }
+
+    /** 
+     * New constructor.
+     * 
+     * @param entity
+     * @param report
+     * @param owner
+     */
+    public ReportReview(Entity entity, Report report, Identity owner) {
+    	this(report, owner);
+    	setEntity(entity);
     }
 
     @JsonIgnore
@@ -447,6 +460,7 @@ public class ReportReview
 		setReviewText(command.getReviewText());
 		setWorkflowLevel(command.getWorkflowLevel());
 		setParsedContent(command.getParsedContent());
+		setNextCheckDate(command.getNextCheckDate());
 		return this;
    	}
        

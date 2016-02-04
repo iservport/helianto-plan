@@ -190,7 +190,6 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	}
 	public void setIssueDate(Date issueDate) {
 		this.issueDate = issueDate;
-		setDay((int) (issueDate!=null?issueDate.getTime()/(1000*60*60*24):0));
 	}
 	
 	/**
@@ -201,6 +200,7 @@ public class ReportJournal implements Serializable, Comparable<ReportJournal>  {
 	}
 	public void setEventDate(Date eventDate) {
 		this.eventDate = eventDate;
+		setDay((int) (eventDate!=null?eventDate.getTime()/(1000*60*60*24):0));
 	}
 	
 	/**
