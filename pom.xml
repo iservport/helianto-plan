@@ -74,7 +74,7 @@
 
 		<dependency>
 			<groupId>org.helianto</groupId>
-			<artifactId>helianto-document</artifactId>
+			<artifactId>helianto-resource</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>

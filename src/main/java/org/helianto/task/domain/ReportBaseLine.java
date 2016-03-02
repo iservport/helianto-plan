@@ -1,20 +1,7 @@
 package org.helianto.task.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
-
-import org.helianto.task.domain.ReportFolder;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Base line.
@@ -26,26 +13,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 uniqueConstraints = {@UniqueConstraint(columnNames={"reportFolderId", "sequence"})}
 )
 public class ReportBaseLine 
-	implements Serializable
+	extends AbstractReportFolderAggregate
 {
 
 	private static final long serialVersionUID = 1L;
 	
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+	private Integer sequence;
     
-    @Version
-    private Integer version;
-    
-    @ManyToOne
-    @JoinColumn(name="reportFolderId", nullable=true)
-	private ReportFolder reportFolder;
-	
-    private Integer sequence;
-    
-    @Transient
-    private Integer reportFolderId;
-
     /**
      * Default Constructor.
      */
@@ -62,8 +36,8 @@ public class ReportBaseLine
      */
 	public ReportBaseLine(ReportFolder reportFolder, Integer sequence) {
 		super();
-		this.reportFolder = reportFolder;
-		this.sequence = sequence;
+		setReportFolder(reportFolder);
+		setSequence(sequence);
 	}
 
 	/**
@@ -75,41 +49,15 @@ public class ReportBaseLine
 	 * @param sequence
 	 * 
 	 */
-	public ReportBaseLine(int id, Integer version, ReportFolder reportFolder,
-			Integer sequence) {
-		this();
-		this.id = id;
-		this.version = version;
-		this.reportFolder = reportFolder;
-		this.sequence = sequence;
+	public ReportBaseLine(int id, ReportFolder reportFolder, Integer sequence) {
+		this(reportFolder, sequence);
+		setId(id);
 	}
 
 	public ReportBaseLine setReportBaseLine(ReportBaseLine baseLine) {
-		this.reportFolder = baseLine.getReportFolder();
-		this.sequence = baseLine.getSequence();
+		setReportFolder(baseLine.getReportFolder());
+		setSequence(baseLine.getSequence());
 		return this;
-	}
-
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Integer getVersion() {
-		return version;
-	}
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
-	@JsonIgnore
-	public ReportFolder getReportFolder() {
-		return reportFolder;
-	}
-	public void setReportFolder(ReportFolder reportFolder) {
-		this.reportFolder = reportFolder;
 	}
 
 	public Integer getSequence() {
@@ -119,20 +67,12 @@ public class ReportBaseLine
 		this.sequence = sequence;
 	}
 	
-	public Integer getReportFolderId() {
-		return reportFolderId;
-	}
-	public void setReportFolderId(Integer reportFolderId) {
-		this.reportFolderId = reportFolderId;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
 		result = prime * result
-				+ ((reportFolder == null) ? 0 : reportFolder.hashCode());
+				+ ((getReportFolder() == null) ? 0 : getReportFolder().hashCode());
 		result = prime * result
 				+ ((sequence == null) ? 0 : sequence.hashCode());
 		return result;
@@ -147,12 +87,10 @@ public class ReportBaseLine
 		if (getClass() != obj.getClass())
 			return false;
 		ReportBaseLine other = (ReportBaseLine) obj;
-		if (id != other.id)
-			return false;
-		if (reportFolder == null) {
-			if (other.reportFolder != null)
+		if (getReportFolder() == null) {
+			if (other.getReportFolder() != null)
 				return false;
-		} else if (!reportFolder.equals(other.reportFolder))
+		} else if (!getReportFolder().equals(other.getReportFolder()))
 			return false;
 		if (sequence == null) {
 			if (other.sequence != null)
@@ -164,8 +102,7 @@ public class ReportBaseLine
 
 	@Override
 	public String toString() {
-		return "ReportBaseLine [id=" + id + ", version=" + version
-				+ ", reportFolder=" + reportFolder + ", sequence=" + sequence
+		return "ReportBaseLine [reportFolder=" + getReportFolder() + ", sequence=" + sequence
 				+ "]";
 	}
 	

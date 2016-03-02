@@ -21,7 +21,7 @@ public class Volume
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(length=12)
+	@Column(length=36)
 	private String volumeCode;
 	
 	@Column(length=64)
@@ -33,10 +33,10 @@ public class Volume
 	  * @param command
    	  **/
     public Volume merge(Volume command) {
-    		setVolumeCode(command.getVolumeCode());
-   			setVolumeName(command.getVolumeName());
-   		   	return this;
-   		}
+    	super.merge(command);
+		setVolumeName(command.getVolumeName());
+	   	return this;
+   	}
     
 	
 	/**

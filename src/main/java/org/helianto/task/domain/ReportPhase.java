@@ -18,12 +18,7 @@ package org.helianto.task.domain;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,7 +41,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="task_phase",
     uniqueConstraints = {@UniqueConstraint(columnNames={"reportFolderId", "literal"})}
 )
-public class ReportPhase 
+public class ReportPhase
+	extends AbstractReportFolderAggregate
 	implements 
 	  Plan
 	, Comparable<ReportPhase> 
@@ -54,17 +50,6 @@ public class ReportPhase
 
     private static final long serialVersionUID = 1L;
     
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    
-	@JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="reportFolderId", nullable=true)
-    private ReportFolder reportFolder;
-    
-	@Transient
-    private Integer reportFolderId = 0;
-	
     @Column
     private char literal;
     
@@ -140,8 +125,8 @@ public class ReportPhase
 			, Date scheduledEndDate
 			) {
 		super();
-		this.id = id;
-		this.reportFolderId = reportFolderId;
+		setId(id);
+		setReportFolderId(reportFolderId);
 		this.literal = literal;
 		this.phaseName = phaseName;
 		this.content = content;
@@ -151,37 +136,6 @@ public class ReportPhase
 		this.scheduledEndDate = scheduledEndDate;
 	}
 
-	/**
-     * Primary key
-     */
-    public int getId() {
-        return this.id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Report folder.
-     */
-    public ReportFolder getReportFolder() {
-		return reportFolder;
-	}
-    public void setReportFolder(ReportFolder reportFolder) {
-		this.reportFolder = reportFolder;
-	}
-    
-    /**
-     * <<Transient>> report folder id.
-     */
-	public Integer getReportFolderId() {
-		return reportFolderId;
-	}
-	public ReportPhase setReportFolderId(Integer reportFolderId) {
-		this.reportFolderId = reportFolderId;
-		return this;
-	}
-    
     /**
      * Recovery folder code.
      */

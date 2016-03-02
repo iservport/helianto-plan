@@ -21,11 +21,9 @@ public interface ReportFolderExportedRepository
 	extends JpaRepository<ReportFolderExported, Serializable> 
 {
 	
-
-	
 	ReportFolderExported findByExportedEntityAndReportFolder(Entity entity, ReportFolder reportFolder);
 	
-	ReportFolderExported findByExportedEntityIdAndReportFolderId(Integer entityId, Integer reportFolderId);
+	ReportFolderExported findByExportedEntity_IdAndReportFolder_Id(Integer entityId, Integer reportFolderId);
 	
 	/**
 	 * Find by exportedEntity

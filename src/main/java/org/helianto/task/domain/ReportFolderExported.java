@@ -1,19 +1,13 @@
 package org.helianto.task.domain;
 
-import java.io.Serializable;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.UniqueConstraint;
-import javax.persistence.Version;
 
 import org.helianto.core.domain.Entity;
 import org.helianto.core.domain.Identity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Report folder exported.
@@ -25,25 +19,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 	uniqueConstraints = {@UniqueConstraint(columnNames={"reportFolderId", "exportedEntityId"})}
 )
 public class ReportFolderExported 
-	implements Serializable{
+	extends AbstractReportFolderAggregate {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    
-	@Version
-    private Integer version;
-	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="reportFolderId")
-    private ReportFolder reportFolder;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="exportedEntityId")
     private Entity exportedEntity;
     
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="exporterId", nullable=true)
 	private Identity exporter; 
@@ -76,37 +61,6 @@ public class ReportFolderExported
 		setReportFolder(reportFolder );
 	}
     
-	 /**
-     * Primary key.
-     */
-    public int getId() {
-        return this.id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Version.
-     */
-    public Integer getVersion() {
-        return this.version;
-    }
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-    
-    /**
-     * <<NaturalKey>> ReportFolder
-     * @see {@link ReportFolder}
-     */
-    public ReportFolder getReportFolder() {
-		return reportFolder;
-	}
-    public void setReportFolder(ReportFolder reportFolder) {
-		this.reportFolder = reportFolder;
-	}
-    
     /**
      * <<NaturalKey>> exportedEntity.
      * 
@@ -136,7 +90,7 @@ public class ReportFolderExported
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((reportFolder == null) ? 0 : reportFolder.hashCode());
+				+ ((getReportFolder() == null) ? 0 : getReportFolder().hashCode());
 		result = prime * result
 				+ ((exportedEntity == null) ? 0 : exportedEntity.hashCode());
 		return result;
@@ -151,10 +105,10 @@ public class ReportFolderExported
 		if (getClass() != obj.getClass())
 			return false;
 		ReportFolderExported other = (ReportFolderExported) obj;
-		if (reportFolder == null) {
-			if (other.reportFolder != null)
+		if (getReportFolder() == null) {
+			if (other.getReportFolder() != null)
 				return false;
-		} else if (!reportFolder.equals(other.reportFolder))
+		} else if (!getReportFolder().equals(other.getReportFolder()))
 			return false;
 		if (exportedEntity == null) {
 			if (other.exportedEntity != null)
