@@ -5,6 +5,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.helianto.core.domain.Entity;
+import org.helianto.core.domain.Identity;
 import org.helianto.core.internal.AbstractEvent;
 
 /**
@@ -26,19 +27,7 @@ public class Volume
 	
 	@Column(length=64)
 	private String volumeName;
-	
-	 /**
-	  * Merger.
-	  * 
-	  * @param command
-   	  **/
-    public Volume merge(Volume command) {
-    	super.merge(command);
-		setVolumeName(command.getVolumeName());
-	   	return this;
-   	}
-    
-	
+		
 	/**
 	 * Default constructor.
 	 */
@@ -57,6 +46,28 @@ public class Volume
 		this();
 		setEntity(entity);
 		setVolumeCode(volumeCode);
+	}
+	
+	/**
+	 * Key constructor.
+	 * 
+	 * @param entity
+	 * @param owner
+	 * @param volumeCode
+	 */
+	public Volume(Entity entity, Identity owner, String volumeCode) {
+		this(entity, volumeCode);
+		setOwner(owner);
+	}
+	
+	/**
+	 * New constructor.
+	 * 
+	 * @param entityId
+	 */
+	public Volume(int entityId) {
+		this();
+		setEntityId(entityId);
 	}
 	
 	/**
@@ -79,6 +90,17 @@ public class Volume
 		this.volumeName = volumeName;
 	}
 
+	 /**
+	  * Merger.
+	  * 
+	  * @param command
+  	  **/
+   public Volume merge(Volume command) {
+   	super.merge(command);
+		setVolumeName(command.getVolumeName());
+	   	return this;
+  	}
+   
 	@Override
 	public int hashCode() {
 		final int prime = 31;
