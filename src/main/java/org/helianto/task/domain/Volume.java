@@ -1,5 +1,7 @@
 package org.helianto.task.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -7,6 +9,7 @@ import javax.persistence.UniqueConstraint;
 import org.helianto.core.domain.Entity;
 import org.helianto.core.domain.Identity;
 import org.helianto.core.internal.AbstractEvent;
+import org.helianto.core.internal.KeyNameAdapter;
 
 /**
  * Volumes.
@@ -18,7 +21,8 @@ import org.helianto.core.internal.AbstractEvent;
     uniqueConstraints = {@UniqueConstraint(columnNames={"entityId", "volumeCode"})}
 )
 public class Volume 
-	extends AbstractEvent {
+	extends AbstractEvent 
+	implements KeyNameAdapter {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -138,6 +142,23 @@ public class Volume
 			return false;
 		}
 		return true;
+	}
+	
+	// interface KeyNameAdapter
+
+	@Override
+	public String getCode() {
+		return getVolumeCode();
+	}
+
+	@Override
+	public Serializable getKey() {
+		return getVolumeCode();
+	}
+
+	@Override
+	public String getName() {
+		return getVolumeName();
 	}
 
 }
