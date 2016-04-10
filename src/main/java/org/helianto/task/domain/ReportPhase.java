@@ -25,8 +25,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import org.helianto.core.SimpleStateResolver;
-import org.helianto.core.StateResolver;
 import org.helianto.document.Plan;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -265,14 +263,6 @@ public class ReportPhase
    			return this;
    		}
        
-    /**
-     * Resolve plan status.
-     */
-    @Transient
-    public StateResolver getState() {
-    	return new SimpleStateResolver(this);
-    }
-    
     @Override
     public int compareTo(ReportPhase other) {
     	if (other!=null) {
