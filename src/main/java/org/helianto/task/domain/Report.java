@@ -1536,10 +1536,10 @@ public class Report
    			super.merge(command);
    			setPrefix(command.getPrefix());
    			setSummary(command.getSummary());
+   			setTaskDesc(command.getTaskDesc());
    			setNature(command.getNature());
    			setReportContent(command.getReportContent());
    			setReportFileContentType(command.getReportFileContentType());
-   			setTaskDesc(command.getTaskDesc());
    			setForecastWork(command.getForecastWork());
    			setActualWork(command.getActualWork());
    			setRelativeSize(command.getRelativeSize());
