@@ -21,23 +21,23 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * Find by Natural Key
 	 * 
 	 * @param entity
-	 * @param internalNumber
+	 * @param orderCode
 	 */
-	AbstractOrder findByEntityAndInternalNumber(Entity entity, long internalNumber);
+	AbstractOrder findByEntityAndOrderCode(Entity entity, String orderCode);
 
 	/**
 	 * Find by Natural Key
 	 * 
 	 * @param entity id
-	 * @param internalNumber
+	 * @param orderCode
 	 */
-	AbstractOrder findByEntity_IdAndInternalNumber(int entityId, long internalNumber);
+	AbstractOrder findByEntity_IdAndOrderCode(int entityId, String orderCode);
 
 	public final static String QUERY = "select new "
 			+ "org.helianto.order.domain.AbstractOrder"
 			+ "( order_.id"
 			+ ", order_.entity.id"
-			+ ", order_.internalNumber"
+			+ ", order_.orderCode"
 			+ ", order_.part.id"
 			+ ", order_.part.docCode"
 			+ ", order_.part.docName"
@@ -83,13 +83,13 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	 * Page by number.
 	 * 
 	 * @param entityId
-	 * @param internalNumber
+	 * @param orderCode
 	 * @param page
 	 */
 	@Query(QUERY
 			+ "where order_.entity.id = ?1 "
-			+ "and order_.internalNumber = ?2 ")
-	Page<AbstractOrder> findByEntity_IdAndInternalNumber(int entityId, Long internalNumber, Pageable page);
+			+ "and order_.orderCode = ?2 ")
+	Page<AbstractOrder> findByEntity_IdAndOrderCode(int entityId, Long orderCode, Pageable page);
 	
 	/**
 	 * Page like doc code.
@@ -147,10 +147,10 @@ public interface OrderRepository extends JpaRepository<AbstractOrder, Serializab
 	Page<AbstractOrder> findBySearchString(int entityId, Integer categoryId, char[] resolution, String search, Pageable page);
 
 	/**
-	 * Find the id from last InternalNumber.
+	 * Find the id from last OrderCode.
 	 */
-	@Query("select max(order_.internalNumber) from AbstractOrder order_ ")
-	Long findLastInternalNumber();
+	@Query("select max(order_.orderCode) from AbstractOrder order_ ")
+	Long findLastOrderCode();
 
 	/**
 	 * List id like docCode.

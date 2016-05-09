@@ -168,7 +168,7 @@ public class OrderReadAdapter
 	 * Constructor.
 	 * 
 	 * @param id
-	 * @param internalNumber
+	 * @param orderCode
 	 * @param partId
 	 * @param docCode
 	 * @param docName
@@ -190,7 +190,7 @@ public class OrderReadAdapter
 	 * @param position
 	 */
 	public OrderReadAdapter(int id
-			, Long internalNumber
+			, String orderCode
 			, Integer partId
 			, String docCode
 			, String docName
@@ -214,7 +214,7 @@ public class OrderReadAdapter
 		    ) {
 		this();
 		setId(id);
-		setInternalNumber(internalNumber);
+		setOrderCode(orderCode);
 		setPartId(partId);
 		setDocCode(docCode);
 		setDocName(docName);
@@ -398,7 +398,7 @@ public class OrderReadAdapter
 				+ ", isConcurrentOrderEnabled()=" + isConcurrentOrderEnabled()
 				+ ", hashCode()=" + hashCode() + ", getDiscriminator()="
 				+ getDiscriminator() + ", getInternalNumber()="
-				+ getInternalNumber() + ", getCheckOutTime()="
+				+ getOrderCode() + ", getCheckOutTime()="
 				+ getCheckOutTime() + ", getInternalNumberKey()="
 				+ getInternalNumberKey() + ", getCategory()=" + getCategory()
 				+ ", getCategoryId()=" + getCategoryId()
@@ -432,8 +432,8 @@ public class OrderReadAdapter
 		return adaptee.getDiscriminator();
 	}
 
-	public long getInternalNumber() {
-		return adaptee.getInternalNumber();
+	public String getOrderCode() {
+		return adaptee.getOrderCode();
 	}
 
 	public Date getCheckOutTime() {
@@ -580,8 +580,8 @@ public class OrderReadAdapter
 		return adaptee.getResolution();
 	}
 
-	public void setInternalNumber(long internalNumber) {
-		adaptee.setInternalNumber(internalNumber);
+	public void setOrderCode(String orderCode) {
+		adaptee.setOrderCode(orderCode);
 	}
 
 	public void setCheckOutTime(Date checkOutTime) {

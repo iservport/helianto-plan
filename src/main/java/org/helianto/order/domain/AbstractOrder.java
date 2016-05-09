@@ -2,6 +2,7 @@ package org.helianto.order.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -25,14 +26,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Classe base para ordens.
+ * Order base class.
  * 
  * @author mauriciofernandesdecastro
  */
 
 @javax.persistence.Entity
-@Table(name="ord_abstract",
-    uniqueConstraints = {@UniqueConstraint(columnNames={"entityId", "internalNumber", "type"})}
+@Table(name="ord_order",
+    uniqueConstraints = {@UniqueConstraint(columnNames={"entityId", "orderCode", "type"})}
 )
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
@@ -40,14 +41,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     discriminatorType=DiscriminatorType.CHAR
 )
 @DiscriminatorValue("P")
-
 public class AbstractOrder 
 	extends AbstractEvent
 {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private long internalNumber = 0;
+	@Column(length=36)
+	private String orderCode = "";
 	
 	@JsonIgnore 
 	@ManyToOne
@@ -116,15 +117,27 @@ public class AbstractOrder
 	 */
 	public AbstractOrder() { 
 		super();
+		setOrderCode(UUID.randomUUID().toString());
 	}
 	
 	/**
 	 * Key constructor.
+	 * 
+	 * @param entity
 	 */
-	public AbstractOrder(Entity entity, long internalNumber) { 
+	public AbstractOrder(Entity entity) { 
 		this();
 		setEntity(entity);
-		setInternalNumber(internalNumber);
+	}
+	
+	/**
+	 * Key constructor.
+	 * @deprecated
+	 */
+	public AbstractOrder(Entity entity, String orderCode) { 
+		this();
+		setEntity(entity);
+		setOrderCode(orderCode);
 	}
 	
 	/**
@@ -146,7 +159,7 @@ public class AbstractOrder
 	 * 
 	 * @param id
 	 * @param entityId
-	 * @param internalNumber
+	 * @param orderCode
 	 * @param partId
 	 * @param docCode
 	 * @param docName
@@ -170,7 +183,7 @@ public class AbstractOrder
 	 */
 	public AbstractOrder(int id
 			, Integer entityId
-			, Long internalNumber
+			, String orderCode
 			, Integer partId
 			, String docCode
 			, String docName
@@ -195,7 +208,7 @@ public class AbstractOrder
 		this();
 		setId(id);
 		setEntityId(entityId);
-		setInternalNumber(internalNumber);
+		setOrderCode(orderCode);
 		setPartId(partId);
 		setDocCode(docCode);
 		setDocName(docName);
@@ -217,12 +230,11 @@ public class AbstractOrder
 		setFaceValue(faceValue);
 		setPosition(position);
 	}	
-	
-	public long getInternalNumber() {
-		return internalNumber;
+	public String getOrderCode() {
+		return orderCode;
 	}
-	public void setInternalNumber(long internalNumber) {
-		this.internalNumber = internalNumber;
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
 	}
 	
 	/**
@@ -394,24 +406,38 @@ public class AbstractOrder
     	return nextCheckDate;
     }
     
-    public boolean equals(Object other) {
-        if ( (this == other ) ) return true;
-        if ( (other == null ) ) return false;
-        if ( !(other instanceof AbstractOrder) ) return false;
-        AbstractOrder castOther = (AbstractOrder) other; 
-        
-		 return ( (this.getEntity()==castOther.getEntity()) || ( this.getEntity()!=null && castOther.getEntity()!=null && this.getEntity().equals(castOther.getEntity()) ) )
-         && (this.getInternalNumber()==castOther.getInternalNumber());
-	}
-    
     @Override
-    public int hashCode() {
-         int result = 17;
-         result = 37 * result + (int) this.getInternalNumber();
-         return result;
-    }
-   
-    /**
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((getEntity() == null) ? 0 : getEntity().hashCode());
+		result = prime * result + ((orderCode == null) ? 0 : orderCode.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractOrder other = (AbstractOrder) obj;
+		if (getEntity() == null) {
+			if (other.getEntity() != null)
+				return false;
+		} else if (!getEntity().equals(other.getEntity()))
+			return false;
+		if (orderCode == null) {
+			if (other.orderCode != null)
+				return false;
+		} else if (!orderCode.equals(other.orderCode))
+			return false;
+		return true;
+	}
+
+	/**
      * Merger.
      * 
      * @param command
