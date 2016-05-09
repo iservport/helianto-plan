@@ -77,6 +77,8 @@ public class AbstractOrder
 	@Transient
 	private String docName = "";
 
+	private BigDecimal orderQty = BigDecimal.ONE;
+
 	private BigDecimal faceValue = BigDecimal.ZERO;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -306,6 +308,13 @@ public class AbstractOrder
 			return getPart().getDocCode();
 		}
 		return "";
+	}
+	
+	public BigDecimal getOrderQty() {
+		return orderQty;
+	}
+	public void setOrderQty(BigDecimal orderQty) {
+		this.orderQty = orderQty;
 	}
 	
 	public Date getNextCheckDate() {
