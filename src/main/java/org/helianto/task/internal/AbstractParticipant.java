@@ -129,6 +129,9 @@ public class AbstractParticipant
      * <<Transient>> identity id.
      */
     public Integer getIdentityId() {
+    	if (getIdentity()!=null) {
+    		return getIdentity().getId();
+    	}
 		return identityId;
 	}
     public void setIdentityId(Integer identityId) {
