@@ -406,7 +406,7 @@ public class OrderReadAdapter
 				+ ", getCategoryName()=" + getCategoryName()
 				+ ", getFaceValue()=" + getFaceValue() + ", getCheckInData()="
 				+ getCheckInData() + ", getCheckOutData()=" + getCheckOutData()
-				+ ", getContextId()=" + getContextId() + ", getDocCode()="
+				+ ", getDocCode()="
 				+ getDocCode() + ", getDocName()=" + getDocName()
 				+ ", getCurrencyId()=" + getCurrencyId() + ", getEntity()="
 				+ getEntity() + ", getEntityId()=" + getEntityId()
@@ -470,10 +470,6 @@ public class OrderReadAdapter
 
 	public String getCheckOutData() {
 		return adaptee.getCheckOutData();
-	}
-
-	public Integer getContextId() {
-		return adaptee.getContextId();
 	}
 
 	public String getDocCode() {
@@ -626,10 +622,6 @@ public class OrderReadAdapter
 
 	public String getTokenPrefix() {
 		return adaptee.getTokenPrefix();
-	}
-
-	public void setContextId(Integer contextId) {
-		adaptee.setContextId(contextId);
 	}
 
 	public void setCurrencyId(Integer currencyId) {
