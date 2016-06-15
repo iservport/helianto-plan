@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
+import org.helianto.core.domain.FrequencyType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -52,6 +54,9 @@ public class PolicyRule implements Serializable {
 	private String policyName;
 	
 	private int numberOfPayments = 1;
+	
+	@Enumerated(EnumType.STRING) @Column(length=36)
+	private FrequencyType frequencyType = FrequencyType.INITIAL;
 	
 	private BigDecimal alpha = BigDecimal.ONE;
 	
@@ -140,6 +145,13 @@ public class PolicyRule implements Serializable {
 	}
 	public void setNumberOfPayments(int numberOfPayments) {
 		this.numberOfPayments = numberOfPayments;
+	}
+	
+	public FrequencyType getFrequencyType() {
+		return frequencyType;
+	}
+	public void setFrequencyType(FrequencyType frequencyType) {
+		this.frequencyType = frequencyType;
 	}
 	
 	/**
