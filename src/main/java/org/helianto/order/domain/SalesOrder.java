@@ -1,5 +1,6 @@
 package org.helianto.order.domain;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +22,29 @@ public class SalesOrder
 
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore 
+	@ManyToOne
+	@JoinColumn(name="policyRuleId")
+	private PolicyRule policyRule;
+	
+	@Transient
+	private Integer policyRuleId;
+	
+	@Column(length=255)
+	private String url;
+    
+	@Column(length=200)
+	private String reference;
+	
+	@Column(length=36)
+	private String transactionCode;
+	
+	@Column(length=32)
+	private String preApprovalCode;
+
+	/**
+	 * Default constructor.
+	 */
 	public SalesOrder() {
 		super();
 	}
@@ -34,14 +58,6 @@ public class SalesOrder
 		this();
 		setEntity(entity);
 	}
-
-	@JsonIgnore 
-	@ManyToOne
-	@JoinColumn(name="policyRuleId")
-	private PolicyRule policyRule;
-	
-	@Transient
-	private Integer policyRuleId;
 
 	public PolicyRule getPolicyRule() {
 		return policyRule;
@@ -58,6 +74,34 @@ public class SalesOrder
 	}
 	public void setPolicyRuleId(Integer policyRuleId) {
 		this.policyRuleId = policyRuleId;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public String getTransactionCode() {
+		return transactionCode;
+	}
+	public void setTransactionCode(String transactionCode) {
+		this.transactionCode = transactionCode;
+	}
+
+	public String getPreApprovalCode() {
+		return preApprovalCode;
+	}
+	public void setPreApprovalCode(String preApprovalCode) {
+		this.preApprovalCode = preApprovalCode;
 	}
 	
 }
