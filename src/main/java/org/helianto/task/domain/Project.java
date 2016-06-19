@@ -2,6 +2,7 @@ package org.helianto.task.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
@@ -46,6 +47,12 @@ public class Project
 	@Transient
     private Date checkinDate;
 	
+    @Column(length=20)
+    private String folderStyle = "bg-white";
+
+    @Column(length=1)
+    private String folderDecorationType = "D";
+
 	/**
 	 * Default constructor.
 	 */
@@ -231,6 +238,27 @@ public class Project
  		this.checkinDate = checkinDate;
  	}
 
+	public String getFolderStyle() {
+		if (folderStyle==null) {
+			return "bg-white";
+		}
+		return folderStyle;
+	}
+	public void setFolderStyle(String folderStyle) {
+		this.folderStyle = folderStyle;
+	}
+
+
+    public String getFolderDecorationType() {
+        if (folderDecorationType==null) {
+            return "D";
+        }
+        return folderDecorationType;
+    }
+    public void setFolderDecorationType(String folderDecorationType) {
+        this.folderDecorationType = folderDecorationType;
+    }
+
      /**
       * Merger.
       * 
@@ -245,6 +273,8 @@ public class Project
  		setTools(command.getTools());
  		setEstimate(command.getEstimate());
  		setEstimateType(command.getEstimateType());
+		setFolderStyle(command.getFolderStyle());
+        setFolderDecorationType(command.getFolderDecorationType());
  		return this;
      }
 }
