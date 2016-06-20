@@ -142,7 +142,7 @@ public class ReportFolder
 	@Column(length=64)
 	private String parentPath = "";
 	
-	@Column(length=12)
+	@Column(length=24)
     private String nature = "";
 	
 	@Column(length=12)
