@@ -21,8 +21,8 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import org.helianto.core.internal.AbstractEventControl;
-import org.helianto.task.def.NotificationOption;
-import org.helianto.task.def.ReviewDecision;
+import org.helianto.task.domain.enums.NotificationOption;
+import org.helianto.task.domain.enums.ReviewDecision;
 
 /**
  * Base class to follow up.

@@ -9,6 +9,8 @@ import org.helianto.core.repository.IdentityRepository;
 import org.helianto.core.test.AbstractJpaRepositoryIntegrationTest;
 import org.helianto.task.domain.Participant;
 import org.helianto.task.domain.Report;
+import org.helianto.task.repository.ParticipantRepository;
+import org.helianto.task.repository.ReportRepository;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;

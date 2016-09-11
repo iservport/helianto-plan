@@ -30,7 +30,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import org.helianto.core.domain.Identity;
-import org.helianto.task.def.Assignment;
+import org.helianto.task.domain.enums.Assignment;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

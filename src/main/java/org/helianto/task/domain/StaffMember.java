@@ -27,9 +27,9 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.helianto.core.domain.Identity;
-import org.helianto.task.def.ReportStaffAssignment;
-import org.helianto.task.def.ReportStaffGrade;
-import org.helianto.task.def.ReportStaffRole;
+import org.helianto.task.domain.enums.ReportStaffAssignment;
+import org.helianto.task.domain.enums.ReportStaffGrade;
+import org.helianto.task.domain.enums.ReportStaffRole;
 import org.helianto.task.internal.AbstractParticipant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

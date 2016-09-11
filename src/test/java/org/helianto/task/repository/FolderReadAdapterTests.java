@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
+import org.helianto.task.repository.FolderReadAdapter;
 import org.junit.Test;
 
 /**

@@ -50,10 +50,10 @@ import org.helianto.core.number.Sequenceable;
 import org.helianto.core.utils.StringListUtils;
 import org.helianto.document.internal.AbstractPlan;
 import org.helianto.partner.domain.Partner;
-import org.helianto.task.def.ActionType;
-import org.helianto.task.def.FollowUpOrder;
-import org.helianto.task.def.RequestType;
-import org.helianto.task.def.WorkflowTarget;
+import org.helianto.task.domain.enums.ActionType;
+import org.helianto.task.domain.enums.FollowUpOrder;
+import org.helianto.task.domain.enums.RequestType;
+import org.helianto.task.domain.enums.WorkflowTarget;
 import org.helianto.user.domain.User;
 import org.springframework.web.multipart.MultipartFile;
 

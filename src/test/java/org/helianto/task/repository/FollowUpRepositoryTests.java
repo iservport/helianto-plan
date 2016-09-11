@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.helianto.core.test.AbstractJpaRepositoryIntegrationTest;
 import org.helianto.task.domain.FollowUp;
 import org.helianto.task.domain.Report;
+import org.helianto.task.repository.FollowUpRepository;
+import org.helianto.task.repository.ReportRepository;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;

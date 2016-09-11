@@ -7,6 +7,7 @@ import org.helianto.core.domain.Identity;
 import org.helianto.core.repository.IdentityRepository;
 import org.helianto.core.test.AbstractJpaRepositoryIntegrationTest;
 import org.helianto.task.domain.ReportJournal;
+import org.helianto.task.repository.ReportJournalRepository;
 import org.helianto.user.domain.User;
 import org.helianto.user.repository.UserRepository;
 import org.junit.runner.RunWith;

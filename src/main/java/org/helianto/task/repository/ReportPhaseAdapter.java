@@ -1,8 +1,9 @@
 package org.helianto.task.repository;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.helianto.task.domain.ReportPhase;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Adapter to phases.

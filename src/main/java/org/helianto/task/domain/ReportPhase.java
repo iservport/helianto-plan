@@ -68,6 +68,14 @@ public class ReportPhase
     @Temporal(TemporalType.TIMESTAMP)
     private Date scheduledEndDate;
 
+    @Transient
+    private Long phaseRange = 0l;
+    
+    @Transient
+    private Long startPercent = 0l;
+    
+    @Transient
+    private Long endRange = 0l;
     
     /** 
      * Default constructor.
@@ -246,6 +254,18 @@ public class ReportPhase
     public void setScheduledEndDate(Date scheduledEndDate) {
         this.scheduledEndDate = scheduledEndDate;
     }
+    
+    public Long getPhaseRange() {
+		return phaseRange;
+	}
+    
+    public Long getStartPercent() {
+		return startPercent;
+	}
+    
+    public Long getEndRange() {
+		return endRange;
+	}
 
     /**
    	 * Merger.

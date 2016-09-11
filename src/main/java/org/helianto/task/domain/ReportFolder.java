@@ -53,8 +53,8 @@ import org.helianto.core.domain.Identity;
 import org.helianto.core.utils.StringListUtils;
 import org.helianto.document.internal.AbstractSerializer;
 import org.helianto.partner.domain.Partner;
-import org.helianto.task.def.ReportFolderContentType;
-import org.helianto.task.def.Resolution2;
+import org.helianto.task.domain.enums.ReportFolderContentType;
+import org.helianto.task.domain.enums.Resolution2;
 import org.helianto.user.domain.User;
 import org.helianto.user.domain.UserGroup;
 

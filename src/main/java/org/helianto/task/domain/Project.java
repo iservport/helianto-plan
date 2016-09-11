@@ -8,8 +8,8 @@ import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 import org.helianto.core.domain.Entity;
-import org.helianto.task.def.ReportFolderContentType;
-import org.helianto.task.def.Resolution2;
+import org.helianto.task.domain.enums.ReportFolderContentType;
+import org.helianto.task.domain.enums.Resolution2;
 import org.helianto.user.domain.User;
 
 /**

@@ -1,7 +1,6 @@
 package org.helianto.task.repository;
 
 import org.helianto.core.repository.ItemCounter;
-
 import org.helianto.task.domain.ReportFolder;
 
 /**

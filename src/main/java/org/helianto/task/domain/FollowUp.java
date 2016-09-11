@@ -30,9 +30,9 @@ import javax.persistence.UniqueConstraint;
 import org.helianto.core.domain.Entity;
 import org.helianto.core.domain.Identity;
 import org.helianto.core.number.Sequenceable;
-import org.helianto.task.def.FollowUpAction;
-import org.helianto.task.def.NotificationOption;
-import org.helianto.task.def.ReviewDecision;
+import org.helianto.task.domain.enums.FollowUpAction;
+import org.helianto.task.domain.enums.NotificationOption;
+import org.helianto.task.domain.enums.ReviewDecision;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
